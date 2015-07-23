@@ -1,0 +1,89 @@
+<% @page_title = "contents_name" %>
+<% if @current_user %>
+<% item=Item.find(@recommendation.item_id)%>
+<%= render "shared/admin/info_bar" %>
+<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+<div class="controll">
+	<%= link_to(image_tag("edit-icon.png",:size => "30x30", :alt => "edit_"+@recommendation.id.to_s) , [:edit, :admin, @recommendation] ) %>
+	<%= link_to(image_tag("delete-icon.png",:size => "30x30", :alt => "delete_"+@recommendation.id.to_s) , admin_recommendation_path(@recommendation), method: :delete, confirm: "Are You Sure to Delete「"+item.name+"」?" ) %>
+</div>
+<% end %>
+<table class="show_item">
+	<tr>
+		<td colspan="4" class="main_img">
+			<% recommendation_image=RecommendationImage.where(recommendation_id: @recommendation) %>
+			<% if recommendation_image.present? %>
+			<%= image_tag(url_for(:action => "get_image", :id => @recommendation),:size => "350x350", :alt => item.name+"_RecommendationImg", :align => "middle", :id => "main_image", :name => "main_image") %>
+			<% end %>
+		</td>
+	</tr>
+	<tr class="sub_imgs">
+		<td>
+			<% if recommendation_image.present? %>
+			<%= image_tag(url_for(:action => "get_image", :id => @recommendation),:size => "70x70", :alt => "Item"+@recommendation.related_item_id1.to_s+"_MainImg", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/admin/get_image?id="+@recommendation.id.to_s+"'); void(0);") %>
+			<% end %>
+		</td>
+		<td>
+			<% subimage=Subimage.where(item_id: @recommendation.item_id.to_i).first %>
+			<% if subimage.present? %>
+			<%= image_tag(url_for(:action => "get_image2", :controller => "admin/items", :id => @recommendation.item_id.to_i),:size => "70x70", :alt => "Item"+@recommendation.item_id.to_s+"_Img2", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image2?id="+@recommendation.item_id.to_s+"'); void(0);") %>
+			<% end %>
+		</td>
+		<td>
+			<% subimage=Subimage.where(item_id: @recommendation.item_id.to_i).offset(1).first %>
+			<% if subimage.present? %>
+			<%= image_tag(url_for(:action => "get_image3", :controller => "admin/items", :id => @recommendation.item_id.to_i),:size => "70x70", :alt => "Item"+@recommendation.item_id.to_s+"_Img3", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image3?id="+@recommendation.item_id.to_s+"'); void(0);") %>
+			<% end %>
+		</td>
+		<td>
+			<% subimage=Subimage.where(item_id: @recommendation.item_id.to_i).offset(2).first %>
+			<% if subimage.present? %>
+			<%= image_tag(url_for(:action => "get_image4", :controller => "admin/items", :id => @recommendation.item_id.to_i),:size => "70x70", :alt => "Item"+@recommendation.item_id.to_s+"_Img4", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image4?id="+@recommendation.item_id.to_s+"'); void(0);") %>
+			<% end %>
+		</td>
+	</tr>
+</table>
+<div class="item_info">
+	<h1> <%= item.name %> </h1>
+	<p class="label">related item 1</p>
+	<p class="info">
+		<% if @recommendation.related_item_id1 %>
+			<%= link_to @recommendation.related_item_id1, admin_item_path(@recommendation.related_item_id1.to_i) , class: "link" %>
+		<% end %>
+	</p>
+	<p class="label">related item 2</p>
+	<p class="info">
+		<% if @recommendation.related_item_id2 %>
+			<%= link_to @recommendation.related_item_id2, admin_item_path(@recommendation.related_item_id2.to_i) , class: "link" %>
+		<% end %>
+	</p>
+	<p class="label">related item 3</p>
+	<p class="info">
+		<% if @recommendation.related_item_id3 %>
+			<%= link_to @recommendation.related_item_id3, admin_item_path(@recommendation.related_item_id3.to_i) , class: "link" %>
+		<% end %>
+	</p>
+	<p class="label">related item 4</p>
+	<p class="info">
+		<% if @recommendation.related_item_id4 %>
+			<%= link_to @recommendation.related_item_id4, admin_item_path(@recommendation.related_item_id4.to_i) , class: "link" %>
+		<% end %>
+	</p>
+</div>
+<div class="item_info">
+	<p class="top_label">recommendation</p>
+	<p class="description"><%= simple_format(@recommendation.recommendation) %></p>
+	<p class="label">comment</p>
+	<p class="description"><%= simple_format(@recommendation.comment) %></p>
+	<p class="label">creator</p>
+	<p class="info"><%= item.create_user %></p>
+	<p class="label">editor</p>
+	<p class="info"><%= @recommendation.edit_user %></p>
+	<p class="label">created at</p>
+	<p class="info"><%= @recommendation.created_at.try(:strftime,"%Y/%m/%d %H:%M") %></p>
+	<p class="label">edited at</p>
+	<p class="info"><%= @recommendation.updated_at.try(:strftime,"%Y/%m/%d %H:%M") %></p>
+</div>
+<% else %>
+<%= render "shared/login_form" %>
+<% end %>

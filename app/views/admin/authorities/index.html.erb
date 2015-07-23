@@ -1,0 +1,56 @@
+<% @page_title = "authoritys" %>
+<% if @current_user && @current_user.authority_id==1 %>
+<%= render "shared/admin/info_bar" %>
+<p class="controll_column_title_top">
+	<%= link_to(image_tag("new.png",:size => "40x40", :alt => "new") , new_admin_authority_path ) %>
+</p>
+<% if @authorities.present? %>
+<div class="table">
+<%= form_tag(:action=> 'plural_destroy') do %>
+	<table border="1">
+		<tr>
+			<th class="center" width="55px">
+				<p class="column_title">
+					<%= image_submit_tag("delete-all-icon.png",:class => "plural_delete", :alt => "plural_delete") %>
+					<%= check_box_tag "check_all", :id => "check_all" %>
+				</p>
+			</th>
+			<th class="center" width="40px"><p class="column_title">ID</p></th>
+			<th class="center" width="70px">
+				<p class="controll_column_title">
+					<%= link_to(image_tag("new.png",:size => "40x40", :alt => "new") , new_admin_authority_path ) %>
+				</p>
+			</th>
+			<th class="center" width="250px"><p class="column_title">NAME</p></th>
+			<th class="center" width="250px"><p class="column_title">AUTHORITY</p></th>
+			<th class="center" width="250px"><p class="column_title">COMMENT</p></th>
+			<th class="center" width="120px"><p class="column_title">CREATED_AT</p></th>
+			<th class="center" width="120px"><p class="column_title">EDITED_AT</p></th>
+		</tr>
+		<% @authorities.each do|authority|  %>
+		<tr class="<%= cycle("even", "odd") -%>">
+			<td class="center"><%= check_box_tag "checked_authorities[#{authority.id}]", authority.id, false, :class => "del_check" %></td>
+			<td class="center"><%= link_to authority.id, admin_authority_path(authority) , class: "link" %></td>
+			<td class="center">
+				<%= link_to(image_tag("edit-icon.png",:size => "20x20", :alt => "edit_"+authority.id.to_s) , [:edit, :admin, authority], :confirm => "Are You Sure to Delete「"+authority.name+"」?", :class => "controll_link right" ) %>
+				<%= link_to(image_tag("delete-icon.png",:size => "20x20", :alt => "delete_"+authority.id.to_s) , admin_authority_path(authority), method: :delete, :confirm => "Are You Sure to Delete「"+authority.name+"」?" , :class => "controll_link left") %>
+			</td>
+			<td class="center"><%= link_to authority.name, admin_authority_path(authority) , class: "link" %></td>
+			<td><%= authority.authority %></td>
+			<td><%= simple_format(authority.comment) %></td>
+			<td class="center"><%= authority.created_at.try(:strftime,"%Y/%m/%d") %></td>
+			<td class="center"><%= authority.updated_at.try(:strftime,"%Y/%m/%d") %></td>
+		</tr>
+		<% end %>
+	</table>
+<% end %>
+</div>
+<% else %>
+	<p class="no_authority">No authority Registered !</p>
+<% end %>
+
+<% elsif @current_user && @current_user.authority_id!=1 %>
+<%= render "shared/auth_err" %>
+<% else %>
+<%= render "shared/login_form" %>
+<% end %>

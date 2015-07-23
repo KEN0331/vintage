@@ -1,0 +1,78 @@
+<% @page_title = "contents_name" %>
+<% if @current_user && (@current_user.authority_id==1||@current_user.authority_id==2) %>
+<% item=Item.find(@recommendation.item_id)%>
+<%= render "shared/admin/info_bar" %>
+<table class="show_item">
+	<tr>
+		<td colspan="4" class="main_img">
+			<% recommendation_image=RecommendationImage.where(recommendation_id: @recommendation) %>
+			<% if recommendation_image.present? %>
+			<%= image_tag(url_for(:action => "get_image", :id => @recommendation),:size => "350x350", :alt => item.name+"_RecommendationImg", :align => "middle", :id => "main_image", :name => "main_image") %>
+			<% end %>
+		</td>
+	</tr>
+	<tr class="sub_imgs">
+		<td>
+			<% main_image=MainImage.where(item_id: @item) %>
+			<% if main_image.present? %>
+			<%= image_tag(url_for(:action => "get_image1", :id => @item),:size => "70x70", :alt => @item.name+"_Img1", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image1?id="+@item.id.to_s+"'); void(0);") %>
+			<% end %>
+		</td>
+		<td>
+			<% subimage=Subimage.where(item_id: @item).first %>
+			<% if subimage.present? %>
+			<%= image_tag(url_for(:action => "get_image2", :id => @item),:size => "70x70", :alt => @item.name+"_Img2", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image2?id="+@item.id.to_s+"'); void(0);") %>
+			<% end %>
+		</td>
+		<td>
+			<% subimage=Subimage.where(item_id: @item).offset(1).first %>
+			<% if subimage.present? %>
+			<%= image_tag(url_for(:action => "get_image3", :id => @item),:size => "70x70", :alt => @item.name+"_Img3", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image3?id="+@item.id.to_s+"'); void(0);") %>
+			<% end %>
+		</td>
+		<td>
+			<% subimage=Subimage.where(item_id: @item).offset(2).first %>
+			<% if subimage.present? %>
+			<%= image_tag(url_for(:action => "get_image4", :id => @item),:size => "70x70", :alt => @item.name+"_Img4", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image4?id="+@item.id.to_s+"'); void(0);") %>
+			<% end %>
+		</td>
+	</tr>
+</table>
+<%= form_for [:admin, @recommendation] do |form| %>
+<div class="item_info">
+	<h1> <%= item.name %> </h1>
+	<%= form.hidden_field :edit_user, :value => @current_user.name %>
+	<p class="label">related item id1</p>
+	<p class="info"><%= form.text_field :related_item_id1 %></p>
+	<p class="label">related item id2</p>
+	<p class="info"><%= form.text_field :related_item_id2 %></p>
+	<p class="label">related item id3</p>
+	<p class="info"><%= form.text_field :related_item_id3 %></p>
+	<p class="label">related item id4</p>
+	<p class="info"><%= form.text_field :related_item_id4 %></p>
+</div>
+<div class="item_info">
+	<p class="top_label">recommendation</p>
+	<p class="description"><%= form.text_area :recommendation %></p>
+	<p class="label">comment</p>
+	<p class="description"><%= form.text_area :comment %></p>
+	<%= form.fields_for :recommendation_image do |recommendation_image_field| %>
+		<p class="label">recomendation image</p>
+		<p class="info"><%= recommendation_image_field.file_field :image %></p>
+	<% end %>
+	<%if @recommendation_image %>
+		<%= form.fields_for :recommendation_image, @recommendation_image do |recommendation_image_new_field| %>
+		<p class="label">recommendation image</p>
+		<p class="info"><%= recommendation_image_new_field.file_field :image %></p>
+		<% end %>
+	<% end %>
+	<div class="button">
+		<%= form.submit "UPDATE", :class => "update_button" %>
+	</div>
+</div>
+<% end %>
+<% elsif @current_user && @current_user.authority_id!=1 && @current_user.authority_id!=2 %>
+<%= render "shared/auth_err" %>
+<% else %>
+<%= render "shared/login_form" %>
+<% end %>

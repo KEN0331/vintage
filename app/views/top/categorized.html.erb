@@ -1,0 +1,28 @@
+<% @page_title = @title %>
+<%= render "shared/side_menu" %>
+<%= will_paginate @items %>
+<table class="items">
+	<% @items.in_groups_of(3) do |row| %>
+	<tr>
+		<% row.each do |item| %>
+		<td>
+			<% if item %>
+			<% denomination=Denomination.find(item.denomination_id)%>
+			<% if item.sold_flag %>
+			<div class="soldout">
+				<p>sold out</p>
+			</div>
+			<% end %>
+			<div class="item_img">
+				<% main_image=MainImage.where(item_id: item).first %>
+				<% if main_image.present? %>
+					<%= link_to(image_tag(url_for(:action => "get_image1", :id => item.id),:size => "150x150", :alt => item.name) , show_item_path(:item => item) ) %>
+				<% end %>
+			</div>
+			<p class="price"><%= link_to denomination.name+" "+item.price.to_s, show_item_path(:item => item) %></p>
+			<% end %>
+		</td>
+		<% end %>
+	</tr>
+	<% end %>
+</table>

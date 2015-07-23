@@ -1,0 +1,13 @@
+class CreateNewArrivals < ActiveRecord::Migration
+  def change
+    create_table :new_arrivals do |t|
+      t.integer :item_id, null: false, limit: 4           #商品ID
+      t.text :new_comment, limit: 300                     #新着コメント
+      t.text :comment, limit: 300                         #コメント
+      t.boolean :deleted, null: false, default: false     #削除フラグ
+      t.string :create_user, limit: 255                   #作成者
+      t.string :edit_user, limit: 255                     #最終編集者
+      t.timestamps                                        #作成日　最終編集日
+    end
+  end
+end

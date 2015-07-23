@@ -1,0 +1,23 @@
+<% @page_title = "contents_name" %>
+<% if @current_user && @current_user.authority_id==1 %>
+<%= render "shared/admin/info_bar" %>
+<div class="controll">
+	<%= link_to(image_tag("edit-icon.png",:size => "30x30", :alt => "edit_"+@authority.id.to_s) , [:edit, :admin, @authority] ) %>
+	<%= link_to(image_tag("delete-icon.png",:size => "30x30", :alt => "delete_"+@authority.id.to_s) , admin_authority_path(@authority), method: :delete, confirm: "Are You Sure to Delete「"+@authority.name+"」?" ) %>
+</div>
+<div class="item_info">
+	<h1> <%= @authority.name %> </h1>
+	<p class="label">authority</p>
+	<p class="description"><%= @authority.authority %></p>
+	<p class="label">created at</p>
+	<p class="info"><%= @authority.created_at.try(:strftime,"%Y/%m/%d %H:%M") %></p>
+	<p class="label">edited at</p>
+	<p class="info"><%= @authority.updated_at.try(:strftime,"%Y/%m/%d %H:%M") %></p>
+	<p class="label">comment</p>
+	<p class="info"><%= simple_format(@authority.comment) %></p>
+</div>
+<% elsif @current_user && @current_user.authority_id!=1 %>
+<%= render "shared/auth_err" %>
+<% else %>
+<%= render "shared/login_form" %>
+<% end %>

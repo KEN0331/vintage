@@ -1,0 +1,19 @@
+<header>
+	<ul>
+		<li><%= link_to_unless_current "HOME", admin_root_path %></li>
+	</ul>
+	<div class="Logo">
+		<a href="<%= admin_root_path %>">
+		<h1>vintage vintage</h1>
+		<p>try on the someone's story</p>
+		</a>
+	</div>
+	<div class="R_header">
+		<%= form_tag search_admin_administrators_path, method: :get do %>
+		<p>
+			<%= text_field_tag "q", params[:q] %>
+			<%= submit_tag "Go" %>
+		</p>
+		<% end %>
+	</div>
+</header>

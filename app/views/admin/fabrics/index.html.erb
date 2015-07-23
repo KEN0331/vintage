@@ -1,0 +1,70 @@
+<% @page_title = "fabrics" %>
+<% if @current_user %>
+<%= render "shared/admin/info_bar" %>
+<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+<p class="controll_column_title_top">
+	<%= link_to(image_tag("new.png",:size => "40x40", :alt => "new") , new_admin_fabric_path ) %>
+</p>
+<% else %>
+<p class="controll_column_title_top"></p>
+<% end %>
+<% if @fabrics.present? %>
+<div class="table">
+<%= form_tag(:action=> 'plural_destroy') do %>
+	<table border="1">
+		<tr>
+			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<th class="center" width="55px">
+				<p class="column_title">
+					<%= image_submit_tag("delete-all-icon.png",:class => "plural_delete", :alt => "plural_delete") %>
+					<%= check_box_tag "check_all", :id => "check_all" %>
+				</p>
+			</th>
+			<% end %>
+			<th class="center" width="40px"><p class="column_title">ID</p></th>
+			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<th class="center" width="70px">
+				<p class="controll_column_title">
+					<%= link_to(image_tag("new.png",:size => "40x40", :alt => "new") , new_admin_fabric_path ) %>
+				</p>
+			</th>
+			<% end %>
+			<th class="center" width="120px"><p class="column_title">NAME</p></th>
+			<th class="center" width="250px"><p class="column_title">DESCRIPTION</p></th>
+			<th class="center" width="250px"><p class="column_title">COMMENT</p></th>
+			<th class="center" width="100px"><p class="column_title">CREATOR</p></th>
+			<th class="center" width="100px"><p class="column_title">EDITOR</p></th>
+			<th class="center" width="120px"><p class="column_title">CREATED_AT</p></th>
+			<th class="center" width="120px"><p class="column_title">EDITED_AT</p></th>
+		</tr>
+		<% @fabrics.each do|fabric|  %>
+		<tr class="<%= cycle("even", "odd") -%>">
+			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<td class="center"><%= check_box_tag "checked_fabrics[#{fabric.id}]", fabric.id, false, :class => "del_check" %></td>
+			<% end %>
+			<td class="center"><%= link_to fabric.id, admin_fabric_path(fabric) , class: "link" %></td>
+			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<td class="center">
+				<%= link_to(image_tag("edit-icon.png",:size => "20x20", :alt => "edit_"+fabric.id.to_s) , [:edit, :admin, fabric], :confirm => "Are You Sure to Delete「"+fabric.name+"」?", :class => "controll_link right" ) %>
+				<%= link_to(image_tag("delete-icon.png",:size => "20x20", :alt => "delete_"+fabric.id.to_s) , admin_fabric_path(fabric), method: :delete, :confirm => "Are You Sure to Delete「"+fabric.name+"」?" , :class => "controll_link left") %>
+			</td>
+			<% end %>
+			<td class="center"><%= link_to fabric.name, admin_fabric_path(fabric) , class: "link" %></td>
+			<td class="center"><%= simple_format(fabric.description) %></td>
+			<td><%= simple_format(fabric.comment) %></td>
+			<td class="center"><%= fabric.create_user %></td>
+			<td class="center"><%= fabric.edit_user %></td>
+			<td class="center"><%= fabric.created_at.try(:strftime,"%Y/%m/%d") %></td>
+			<td class="center"><%= fabric.updated_at.try(:strftime,"%Y/%m/%d") %></td>
+		</tr>
+		<% end %>
+	</table>
+<% end %>
+</div>
+<% else %>
+	<p class="no_fabric">No fabric Registered !</p>
+<% end %>
+
+<% else %>
+<%= render "shared/login_form" %>
+<% end %>

@@ -1,0 +1,24 @@
+<div class="login_page">
+	<%= image_tag("Recommend.jpg", :size => "980x300", :alt => "Recommended", class: :"title-img") %>
+	<div class="login_form">
+		<h2>LOGIN</h2>
+		<% if flash.alert %>
+		<p class="alert"><%= flash.alert %></p>
+		<% end %>
+		
+		<%= form_tag :admin_session do %>
+		<table>
+			<tr>
+				<td><%= text_field_tag "userid", nil, :placeholder => "UserID", :class => "login_field" %></td>
+			</tr>
+			<tr>
+				<td><%= password_field_tag "password", nil, :placeholder => "Password", :class => "login_field" %></td>
+			</tr>
+			<tr>
+				<td class="login_button_layout" colspan="2"><%= submit_tag "LOGIN" , :class => "login_button" %></td>
+			</tr>
+		</table>
+		<%= hidden_field_tag "from", request.path %>
+		<% end %>
+	</div>
+</div>

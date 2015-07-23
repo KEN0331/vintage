@@ -1,0 +1,21 @@
+<header>
+	<ul>
+		<li><%= link_to_unless_current "HOME", root_path %></li>
+		<li><%= link_to_unless_current "LOG IN", "#" %></li>
+	</ul>
+	<div class="Logo">
+		<a href="<%= root_path %>">
+		<h1>vintage vintage</h1>
+		<p>try on the someone's story</p>
+		</a>
+	</div>
+	<div class="R_header">
+		<p>Your Cart 0 Items</p>
+		<%= form_tag :search, method: :get do %>
+		<p>
+			<%= text_field_tag "q", params[:q] %>
+			<%= submit_tag "Go" %>
+		</p>
+		<% end %>
+	</div>
+</header>

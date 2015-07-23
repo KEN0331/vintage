@@ -1,0 +1,36 @@
+<% @page_title = "contents_name" %>
+<% if @current_user && @current_user.authority_id==1 %>
+<%= render "shared/admin/info_bar" %>
+<div class="controll">
+	<%= link_to(image_tag("edit-icon.png",:size => "30x30", :alt => "edit_"+@administrator.id.to_s) , [:edit, :admin, @administrator] ) %>
+	<%= link_to(image_tag("delete-icon.png",:size => "30x30", :alt => "delete_"+@administrator.id.to_s) , admin_administrator_path(@administrator), method: :delete, confirm: "Are You Sure to Delete「"+@administrator.name+"」?" ) %>
+</div>
+<div class="item_info">
+	<h1> <%= @administrator.name %> </h1>
+	<p class="label">userid</p>
+	<p class="info"><%= @administrator.userid %></p>
+	<p class="label">authority</p>
+	<% authority=Authority.find(@administrator.authority_id) %>
+	<p class="info"><%= authority.name %></p>
+	<p class="label">tel</p>
+	<p class="info"><%= @administrator.tel %></p>
+	<p class="label">email</p>
+	<p class="info"><%= @administrator.email %></p>
+</div>
+<div class="item_info">
+		<p class="label">creator</p>
+	<p class="info"><%= @administrator.create_user %></p>
+	<p class="label">editor</p>
+	<p class="info"><%= @administrator.edit_user %></p>
+	<p class="label">created at</p>
+	<p class="info"><%= @administrator.created_at.try(:strftime,"%Y/%m/%d %H:%M") %></p>
+	<p class="label">edited at</p>
+	<p class="info"><%= @administrator.updated_at.try(:strftime,"%Y/%m/%d %H:%M") %></p>
+	<p class="label">comment</p>
+	<p class="info"><%= simple_format(@administrator.comment) %></p>
+</div>
+<% elsif @current_user && @current_user.authority_id!=1 %>
+<%= render "shared/auth_err" %>
+<% else %>
+<%= render "shared/login_form" %>
+<% end %>

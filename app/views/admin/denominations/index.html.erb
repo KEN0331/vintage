@@ -1,0 +1,68 @@
+<% @page_title = "denomination" %>
+<% if @current_user %>
+<%= render "shared/admin/info_bar" %>
+<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+<p class="controll_column_title_top">
+	<%= link_to(image_tag("new.png",:size => "40x40", :alt => "new") , new_admin_denomination_path ) %>
+</p>
+<% else %>
+<p class="controll_column_title_top"></p>
+<% end %>
+<% if @denominations.present? %>
+<div class="table">
+<%= form_tag(:action=> 'plural_destroy') do %>
+	<table border="1">
+		<tr>
+			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<th class="center" width="55px">
+				<p class="column_title">
+					<%= image_submit_tag("delete-all-icon.png",:class => "plural_delete", :alt => "plural_delete") %>
+					<%= check_box_tag "check_all", :id => "check_all" %>
+				</p>
+			</th>
+			<% end %>
+			<th class="center" width="40px"><p class="column_title">ID</p></th>
+			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<th class="center" width="70px">
+				<p class="controll_column_title">
+					<%= link_to(image_tag("new.png",:size => "40x40", :alt => "new") , new_admin_denomination_path ) %>
+				</p>
+			</th>
+			<% end %>
+			<th class="center" width="250px"><p class="column_title">NAME</p></th>
+			<th class="center" width="250px"><p class="column_title">COMMENT</p></th>
+			<th class="center" width="100px"><p class="column_title">CREATOR</p></th>
+			<th class="center" width="100px"><p class="column_title">EDITOR</p></th>
+			<th class="center" width="120px"><p class="column_title">CREATED_AT</p></th>
+			<th class="center" width="120px"><p class="column_title">EDITED_AT</p></th>
+		</tr>
+		<% @denominations.each do|denomination|  %>
+		<tr class="<%= cycle("even", "odd") -%>">
+			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<td class="center"><%= check_box_tag "checked_denominations[#{denomination.id}]", denomination.id, false, :class => "del_check" %></td>
+			<% end %>
+			<td class="center"><%= link_to denomination.id, admin_denomination_path(denomination) , class: "link" %></td>
+			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<td class="center">
+				<%= link_to(image_tag("edit-icon.png",:size => "20x20", :alt => "edit_"+denomination.id.to_s) , [:edit, :admin, denomination], :confirm => "Are You Sure to Delete「"+denomination.name+"」?", :class => "controll_link right" ) %>
+				<%= link_to(image_tag("delete-icon.png",:size => "20x20", :alt => "delete_"+denomination.id.to_s) , admin_denomination_path(denomination), method: :delete, :confirm => "Are You Sure to Delete「"+denomination.name+"」?" , :class => "controll_link left") %>
+			</td>
+			<% end %>
+			<td class="center"><%= link_to denomination.name, admin_denomination_path(denomination) , class: "link" %></td>
+			<td><%= simple_format(denomination.comment) %></td>
+			<td class="center"><%= denomination.create_user %></td>
+			<td class="center"><%= denomination.edit_user %></td>
+			<td class="center"><%= denomination.created_at.try(:strftime,"%Y/%m/%d") %></td>
+			<td class="center"><%= denomination.updated_at.try(:strftime,"%Y/%m/%d") %></td>
+		</tr>
+		<% end %>
+	</table>
+<% end %>
+</div>
+<% else %>
+	<p class="no_denomination">No denomination Registered !</p>
+<% end %>
+
+<% else %>
+<%= render "shared/login_form" %>
+<% end %>

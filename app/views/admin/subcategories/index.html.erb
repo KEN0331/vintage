@@ -1,0 +1,71 @@
+<% @page_title = "subcategories" %>
+<% if @current_user %>
+<%= render "shared/admin/info_bar" %>
+<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+<p class="controll_column_title_top">
+	<%= link_to(image_tag("new.png",:size => "40x40", :alt => "new") , new_admin_subcategory_path ) %>
+</p>
+<% else %>
+<p class="controll_column_title_top"></p>
+<% end %>
+<% if @subcategories.present? %>
+<div class="table">
+<%= form_tag(:action=> 'plural_destroy') do %>
+	<table border="1">
+		<tr>
+			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<th class="center" width="55px">
+				<p class="column_title">
+					<%= image_submit_tag("delete-all-icon.png",:class => "plural_delete", :alt => "plural_delete") %>
+					<%= check_box_tag "check_all", :id => "check_all" %>
+				</p>
+			</th>
+			<% end %>
+			<th class="center" width="40px"><p class="column_title">ID</p></th>
+			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<th class="center" width="70px">
+				<p class="controll_column_title">
+					<%= link_to(image_tag("new.png",:size => "40x40", :alt => "new") , new_admin_subcategory_path ) %>
+				</p>
+			</th>
+			<% end %>
+			<th class="center" width="250px"><p class="column_title">NAME</p></th>
+			<th class="center" width="100px"><p class="column_title">CATEGORY</p></th>
+			<th class="center" width="250px"><p class="column_title">COMMENT</p></th>
+			<th class="center" width="100px"><p class="column_title">CREATOR</p></th>
+			<th class="center" width="100px"><p class="column_title">EDITOR</p></th>
+			<th class="center" width="120px"><p class="column_title">CREATED_AT</p></th>
+			<th class="center" width="120px"><p class="column_title">EDITED_AT</p></th>
+		</tr>
+		<% @subcategories.each do|subcategory|  %>
+		<tr class="<%= cycle("even", "odd") -%>">
+			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<td class="center"><%= check_box_tag "checked_subcategories[#{subcategory.id}]", subcategory.id, false, :class => "del_check" %></td>
+			<% end %>
+			<td class="center"><%= link_to subcategory.id, admin_subcategory_path(subcategory) , class: "link" %></td>
+			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<td class="center">
+				<%= link_to(image_tag("edit-icon.png",:size => "20x20", :alt => "edit_"+subcategory.id.to_s) , [:edit, :admin, subcategory], :confirm => "Are You Sure to Delete「"+subcategory.name+"」?", :class => "controll_link right" ) %>
+				<%= link_to(image_tag("delete-icon.png",:size => "20x20", :alt => "delete_"+subcategory.id.to_s) , admin_subcategory_path(subcategory), method: :delete, :confirm => "Are You Sure to Delete「"+subcategory.name+"」?" , :class => "controll_link left") %>
+			</td>
+			<% end %>
+			<td class="center"><%= link_to subcategory.name, admin_subcategory_path(subcategory) , class: "link" %></td>
+			<% category=Category.find(subcategory.category_id) %>
+			<td class="center"><%= category.name %></td>
+			<td><%= simple_format(subcategory.comment) %></td>
+			<td class="center"><%= subcategory.create_user %></td>
+			<td class="center"><%= subcategory.edit_user %></td>
+			<td class="center"><%= subcategory.created_at.try(:strftime,"%Y/%m/%d") %></td>
+			<td class="center"><%= subcategory.updated_at.try(:strftime,"%Y/%m/%d") %></td>
+		</tr>
+		<% end %>
+	</table>
+<% end %>
+</div>
+<% else %>
+	<p class="no_subcategory">No subcategory Registered !</p>
+<% end %>
+
+<% else %>
+<%= render "shared/login_form" %>
+<% end %>

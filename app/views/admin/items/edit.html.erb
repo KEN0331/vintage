@@ -1,0 +1,128 @@
+<% @page_title = "contents_name" %>
+<% if @current_user && (@current_user.authority_id==1||@current_user.authority_id==2) %>
+<%= render "shared/admin/info_bar" %>
+<table class="show_item">
+	<tr>
+		<td colspan="4" class="main_img">
+			<% main_image=MainImage.where(item_id: @item) %>
+			<% if main_image.present? %>
+			<%= image_tag(url_for(:action => "get_image1", :id => @item),:size => "350x350", :alt => @item.name+"_MainImg", :align => "middle", :id => "main_image", :name => "main_image") %>
+			<% end %>
+		</td>
+	</tr>
+	<tr class="sub_imgs">
+		<td>
+			<% main_image=MainImage.where(item_id: @item) %>
+			<% if main_image.present? %>
+			<%= image_tag(url_for(:action => "get_image1", :id => @item),:size => "70x70", :alt => @item.name+"_Img1", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image1?id="+@item.id.to_s+"'); void(0);") %>
+			<% end %>
+		</td>
+		<td>
+			<% subimage=Subimage.where(item_id: @item).first %>
+			<% if subimage.present? %>
+			<%= image_tag(url_for(:action => "get_image2", :id => @item),:size => "70x70", :alt => @item.name+"_Img2", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image2?id="+@item.id.to_s+"'); void(0);") %>
+			<% end %>
+		</td>
+		<td>
+			<% subimage=Subimage.where(item_id: @item).offset(1).first %>
+			<% if subimage.present? %>
+			<%= image_tag(url_for(:action => "get_image3", :id => @item),:size => "70x70", :alt => @item.name+"_Img3", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image3?id="+@item.id.to_s+"'); void(0);") %>
+			<% end %>
+		</td>
+		<td>
+			<% subimage=Subimage.where(item_id: @item).offset(2).first %>
+			<% if subimage.present? %>
+			<%= image_tag(url_for(:action => "get_image4", :id => @item),:size => "70x70", :alt => @item.name+"_Img4", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image4?id="+@item.id.to_s+"'); void(0);") %>
+			<% end %>
+		</td>
+	</tr>
+</table>
+<%= form_for [:admin, @item] do |form| %>
+<div class="item_info">
+	<p class="top_label">ITEM NAME</p>
+	<p class="info"><%= form.text_field :name %></p>
+	<p class="label">category</p>
+	<p class="info" id="categories"><%= select_tag :category_id, options_from_collection_for_select(Category.all, :id, :name, :selected => @category.id) %></p>
+	<p class="label">subcategory</p>
+	<p class="info" id="subcategories"><%= form.collection_select :subcategory_id, Subcategory.where(:category_id => @category.id ).all, :id, :name %></p>
+	<p class="label">price</p>
+	<p class="info"><%= form.text_field :price %> <%= form.collection_select :denomination_id,Denomination.all, :id, :name %></p>
+	<p class="label">condition</p>
+	<p class="info"><%= form.collection_select :condition_id,Condition.all, :id, :name %></p>
+	<p class="label">size</p>
+	<p class="info">
+		<%= select_tag :item_type_id, options_from_collection_for_select(ItemType.all, :id, :name) %>
+		<div id="units"><%= form.text_area :size %></div>
+	</p>
+</div>
+<div class="item_info">
+	<p class="top_label">fabric</p>
+	<p class="info"><%= form.collection_select :fabric_id,Fabric.all, :id, :name %></p>
+	<p class="label">spike(URL)</p>
+	<p class="info"><%= form.text_field :spike_url %></p>
+	<p class="label">sold</p>
+	<p class="info"><%= form.check_box :sold_flag %></p>
+	<%= form.hidden_field :edit_user, :value => @current_user.name %>
+	<p class="label">description</p>
+	<p class="description"><%= form.text_area :description %></p>
+	<p class="label">comment</p>
+	<p class="description"><%= form.text_area :comment %></p>
+</div>
+<div class="item_info">
+	<%= form.fields_for :main_image do |main_image_field| %>
+		<p class="top_label">image1</p>
+		<p class="info"><%= main_image_field.file_field :image %></p>
+	<% end %>
+	<%if @main_image %>
+		<%= form.fields_for :main_image, @main_image do |main_image_new_field| %>
+		<p class="top_label">image1</p>
+		<p class="info"><%= main_image_new_field.file_field :image %></p>
+		<% end %>
+	<% end %>
+	<% i=2 %>
+	<% @item.subimages.each do |subimage| %>
+		<% if !subimage.deleted %>
+			<%= form.fields_for :subimages, subimage do |subimage_field| %>
+			<p class="top_label">image<%= i %></p>
+			<p class="info"><%= subimage_field.file_field :image %></p>
+			<% end %>
+		<% i+=1 %>
+		<% end %>
+	<% end %>
+	<% @subimages.each do |subimage_new| %>
+			<%= form.fields_for :subimages, subimage_new do |subimage_new_field| %>
+			<p class="top_label">image<%= i %></p>
+			<p class="info"><%= subimage_new_field.file_field :image %></p>
+			<% end %>
+			<% i+=1 %>
+	<% end %>
+	<%= form.fields_for :new_arrival, @new_arrival_param do |new_arrival_field| %>
+	<p class="label">new_arrival</p>
+	<% if @new_arrival_flg=="1" %>
+		<p class="info"><%= new_arrival_field.check_box :item_id,{:checked => @item.id, :disabled => true}, @item.id, false  %></p>
+	<% elsif @new_arrival_flg=="2" %>
+		<p class="info"><%= new_arrival_field.check_box :deleted,{:checked => 0}, 0, false  %></p>
+	<% else %>
+		<p class="info"><%= new_arrival_field.check_box :item_id,{:checked => @item.id}, @item.id, false  %></p>
+	<% end %>
+	<% end %>
+	<%= form.fields_for :recommendation, @recommendation_param do |recommendation_field| %>
+	<p class="label">recommendation</p>
+	<% if @recommendation_flg=="1" %>
+		<p class="info"><%= recommendation_field.check_box :item_id,{:checked => @item.id, :disabled => true}, @item.id, false  %></p>
+	<% elsif  @recommendation_flg=="2" %>
+		<p class="info"><%= recommendation_field.check_box :deleted,{:checked => 0}, 0, false  %></p>
+	<% else %>
+		<p class="info"><%= recommendation_field.check_box :item_id,{:checked => @item.id}, @item.id, false  %></p>
+	<% end %>
+	<% end %>
+	<div class="button">
+		<%= form.submit "UPDATE", :class => "update_button" %>
+	</div>
+</div>
+<% end %>
+<% elsif @current_user && @current_user.authority_id!=1 && @current_user.authority_id!=2 %>
+<%= render "shared/auth_err" %>
+<% else %>
+<%= render "shared/login_form" %>
+<% end %>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= page_title %></title>
+  <%= stylesheet_link_tag controller_name, media: "all", 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="bg">
+	<div class="wrap">
+		<%= render "shared/admin/header" %>
+			<div class="content">
+				<div class="main">
+					<% if @new_arrivals %>
+						<%= will_paginate @new_arrivals %>
+					<% end %>
+					<div class="show_case">
+						<% if flash.notice %>
+						<p class="notice"><%= flash.notice %></p>
+						<% end %>
+						<%= yield %>
+					</div>
+					<% if @new_arrivals %>
+						<%= will_paginate @new_arrivals %>
+					<% end %>
+				</div>
+			</div>
+		<%= render "shared/admin/footer" %>
+	</div>
+</div>
+</body>
+</html>

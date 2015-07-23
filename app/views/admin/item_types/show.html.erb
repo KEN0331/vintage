@@ -1,0 +1,34 @@
+<% @page_title = "contents_name" %>
+<% if @current_user %>
+<%= render "shared/admin/info_bar" %>
+<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+<div class="controll">
+	<%= link_to(image_tag("edit-icon.png",:size => "30x30", :alt => "edit_"+@item_type.id.to_s) , [:edit, :admin, @item_type] ) %>
+	<%= link_to(image_tag("delete-icon.png",:size => "30x30", :alt => "delete_"+@item_type.id.to_s) , admin_item_type_path(@item_type), method: :delete, confirm: "Are You Sure to Delete「"+@item_type.name+"」?" ) %>
+</div>
+<% end %>
+<div class="item_info">
+	<h1> <%= @item_type.name %> </h1>
+	<p class="label">units</p>
+	<p class="description">
+		<% @item_type.unit_id_list.each do |unit| %>
+		<% @unit=Unit.find(unit.to_i) %>
+		<%= @unit.name %>:
+		<%= @unit.unit %>
+		<br />
+		<% end %>
+	</p>
+	<p class="label">creator</p>
+	<p class="info"><%= @item_type.create_user %></p>
+	<p class="label">editor</p>
+	<p class="info"><%= @item_type.edit_user %></p>
+	<p class="label">created at</p>
+	<p class="info"><%= @item_type.created_at.try(:strftime,"%Y/%m/%d %H:%M") %></p>
+	<p class="label">edited at</p>
+	<p class="info"><%= @item_type.updated_at.try(:strftime,"%Y/%m/%d %H:%M") %></p>
+	<p class="label">comment</p>
+	<p class="info"><%= simple_format(@item_type.comment) %></p>
+</div>
+<% else %>
+<%= render "shared/login_form" %>
+<% end %>

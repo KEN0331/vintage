@@ -1,0 +1,79 @@
+<% @page_title = "item types" %>
+<% if @current_user %>
+<%= render "shared/admin/info_bar" %>
+<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+<p class="controll_column_title_top">
+	<%= link_to(image_tag("new.png",:size => "40x40", :alt => "new") , new_admin_item_type_path ) %>
+</p>
+<% else %>
+<p class="controll_column_title_top"></p>
+<% end %>
+<% if @item_types.present? %>
+<div class="table">
+<%= form_tag(:action=> 'plural_destroy') do %>
+	<table border="1">
+		<tr>
+			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<th class="center" width="55px">
+				<p class="column_title">
+					<%= image_submit_tag("delete-all-icon.png",:class => "plural_delete", :alt => "plural_delete") %>
+					<%= check_box_tag "check_all", :id => "check_all" %>
+				</p>
+			</th>
+			<% end %>
+			<th class="center" width="40px"><p class="column_title">ID</p></th>
+			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<th class="center" width="70px">
+				<p class="controll_column_title">
+					<%= link_to(image_tag("new.png",:size => "40x40", :alt => "new") , new_admin_item_type_path ) %>
+				</p>
+			</th>
+			<% end %>
+			<th class="center" width="250px"><p class="column_title">NAME</p></th>
+			<th class="center" width="100px"><p class="column_title">UNITS</p></th>
+			<th class="center" width="250px"><p class="column_title">COMMENT</p></th>
+			<th class="center" width="100px"><p class="column_title">CREATOR</p></th>
+			<th class="center" width="100px"><p class="column_title">EDITOR</p></th>
+			<th class="center" width="120px"><p class="column_title">CREATED_AT</p></th>
+			<th class="center" width="120px"><p class="column_title">EDITED_AT</p></th>
+		</tr>
+		<% @item_types.each do|item_type|  %>
+		<tr class="<%= cycle("even", "odd") -%>">
+			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<td class="center"><%= check_box_tag "checked_item_types[#{item_type.id}]", item_type.id, false, :class => "del_check" %></td>
+			<% end %>
+			<td class="center"><%= link_to item_type.id, admin_item_type_path(item_type) , class: "link" %></td>
+			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<td class="center">
+				<%= link_to(image_tag("edit-icon.png",:size => "20x20", :alt => "edit_"+item_type.id.to_s) , [:edit, :admin, item_type], :confirm => "Are You Sure to Delete「"+item_type.name+"」?", :class => "controll_link right" ) %>
+				<%= link_to(image_tag("delete-icon.png",:size => "20x20", :alt => "delete_"+item_type.id.to_s) , admin_item_type_path(item_type), method: :delete, :confirm => "Are You Sure to Delete「"+item_type.name+"」?" , :class => "controll_link left") %>
+			</td>
+			<% end %>
+			<td class="center"><%= link_to item_type.name, admin_item_type_path(item_type) , class: "link" %></td>
+			<td class="center">
+			<% if item_type.unit_id_list %>
+				<% item_type.unit_id_list.each do |unit| %>
+				<% @unit=Unit.find(unit.to_i) %>
+				<%= @unit.name %>:
+				<%= @unit.unit %>
+				<br />
+				<% end %>
+			<% end %>
+			</td>
+			<td><%= simple_format(item_type.comment) %></td>
+			<td class="center"><%= item_type.create_user %></td>
+			<td class="center"><%= item_type.edit_user %></td>
+			<td class="center"><%= item_type.created_at.try(:strftime,"%Y/%m/%d") %></td>
+			<td class="center"><%= item_type.updated_at.try(:strftime,"%Y/%m/%d") %></td>
+		</tr>
+		<% end %>
+	</table>
+<% end %>
+</div>
+<% else %>
+	<p class="no_item_type">No item type Registered !</p>
+<% end %>
+
+<% else %>
+<%= render "shared/login_form" %>
+<% end %>

@@ -1,0 +1,35 @@
+<% @page_title = "contents_name" %>
+<% if @current_user && @current_user.authority_id==1 %>
+<%= render "shared/admin/info_bar" %>
+<%= form_for [:admin, @administrator] do |form| %>
+<div class="item_info">
+	<p class="top_label">ADMINISTRATOR NAME</p>
+	<p class="info"><%= form.text_field :name %></p>
+	<p class="label">userid</p>
+	<p class="info"><%= form.text_field :userid %></p>
+	<p class="label">password</p>
+	<p class="info"><%= form.text_field :password %></p>
+	<p class="label">password_confirmation</p>
+	<p class="info"><%= form.text_field :password_confirmation %></p>
+	<p class="label">authority</p>
+	<p class="info"><%= form.collection_select :authority_id,Authority.all, :id, :name %></p>
+	<p class="label">tel</p>
+	<p class="info"><%= form.text_field :tel %></p>
+	<p class="label">email</p>
+	<p class="info"><%= form.text_field :email %></p>
+	<p class="label">comment</p>
+	<p class="description"><%= form.text_area :comment %></p>
+	
+	<%= form.hidden_field :create_user, :value => @current_user.name %>
+	<%= form.hidden_field :edit_user, :value => @current_user.name %>
+	<div class="button">
+	<%= form.submit "CREATE", :class => "create_button" %>
+</div>
+</div>
+
+<% end %>
+<% elsif @current_user && @current_user.authority_id!=1 %>
+<%= render "shared/auth_err" %>
+<% else %>
+<%= render "shared/login_form" %>
+<% end %>

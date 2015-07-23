@@ -1,0 +1,42 @@
+<% @page_title = "admin top" %>
+<% if @current_user %>
+<%= render "shared/admin/info_bar" %>
+<table class="admin_menu_tbl">
+	<tr>
+		<td colspan="6"><%= link_to "item", admin_items_path , class: "menu_btn items_admin" %></td>
+	</tr>
+	<tr>
+		<td colspan="2"><%= link_to "category", admin_categories_path , class: "menu_btn categories" %></td>
+		<td colspan="2"><%= link_to "subcategory", admin_subcategories_path , class: "menu_btn subcategories" %></td>
+		<td colspan="2"><%= link_to "condition", admin_conditions_path , class: "menu_btn conditions" %></td>
+	</tr>
+	<tr>
+		<td colspan="2"><%= link_to "fabric", admin_fabrics_path , class: "menu_btn fabrics" %></td>
+		<td colspan="2"><%= link_to "currency", admin_denominations_path , class: "menu_btn denominations" %></td>
+		<td colspan="2"><%= link_to "unit", admin_units_path , class: "menu_btn units" %></td>
+	</tr>
+	<tr>
+		<td colspan="3"><%= link_to "item type", admin_item_types_path , class: "menu_btn item_types" %></td>
+		<td colspan="3"><%= link_to "olark", "https://chat.olark.com/" , :target=>["_blank"], class: "menu_btn olark" %></td>
+	</tr>
+	<tr>
+		<td colspan="3"><%= link_to "recommend", admin_recommendations_path , class: "menu_btn recommendations" %></td>
+		<td colspan="3"><%= link_to "new arrival", admin_new_arrivals_path , class: "menu_btn new_arrivals" %></td>
+	</tr>
+	<% if @current_user.authority_id==1 %>
+	<tr>
+		<td colspan="3"><%= link_to "administrator", admin_administrators_path , class: "menu_btn administrators" %></td>
+		<td colspan="3"><%= link_to "authority", admin_authorities_path , class: "menu_btn authorities" %></td>
+	</tr>
+	<% else %>
+	<tr>
+		<td colspan="3"><p class="menu_btn administrators">administrators</p></td>
+		<td colspan="3"><p class="menu_btn authorities">authorities</p></td>
+	</tr>
+	<% end %>
+</table>
+
+<% else %>
+<%= render "shared/login_form" %>
+<% end %>
+

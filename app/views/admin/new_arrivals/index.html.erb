@@ -1,0 +1,72 @@
+<% @page_title = "new arrivals" %>
+<% if @current_user %>
+<%= render "shared/admin/info_bar" %>
+<p class="controll_column_title_top"></p>
+<% if @new_arrivals.present? %>
+<div class="table">
+<%= form_tag(:action=> 'plural_destroy') do %>
+	<table border="1">
+		<tr>
+			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<th class="center" width="55px">
+				<p class="column_title">
+					<%= image_submit_tag("delete-all-icon.png",:class => "plural_delete", :alt => "plural_delete") %>
+					<%= check_box_tag "check_all",{}, false, :id => "check_all", :onclick => "AllChecked();" %>
+				</p>
+			</th>
+			<% end %>
+			<th class="center" width="40px"><p class="column_title">ID</p></th>
+			<th class="center" width="70px"><p class="controll_column_title"></p></th>
+			<th class="center" width="250px"><p class="column_title">ITEM ID</p></th>
+			<th class="center" width="130px"><p class="column_title">NAME</p></th>
+			<th class="center" width="70px"><p class="column_title">MAIN IMG</p></th>
+			<th class="center" width="250px"><p class="column_title">NEW COMMENT</p></th>
+			<th class="center" width="250px"><p class="column_title">COMMENT</p></th>
+			<th class="center" width="60px"><p class="column_title">SOLD</p></th>
+			<th class="center" width="100px"><p class="column_title">CREATOR</p></th>
+			<th class="center" width="100px"><p class="column_title">EDITOR</p></th>
+			<th class="center" width="120px"><p class="column_title">CREATED_AT</p></th>
+			<th class="center" width="120px"><p class="column_title">EDITED_AT</p></th>
+		</tr>
+		<% @new_arrivals.each do|new_arrival|  %>
+		<tr class="<%= cycle("even", "odd") -%>">
+			<% item=Item.find(new_arrival.item_id)%>
+			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<td class="center"><%= check_box_tag "checked_new_arrivals[#{new_arrival.id}]", new_arrival.id, false, :class => "del_check" %></td>
+			<% end %>
+			<td class="center"><%= link_to new_arrival.id, admin_new_arrival_path(new_arrival) , class: "link" %></td>
+			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<td class="center">
+				<%= link_to(image_tag("edit-icon.png",:size => "20x20", :alt => "edit_"+new_arrival.id.to_s) , [:edit, :admin, new_arrival], :confirm => "Are You Sure to Delete「"+item.name+"」?", :class => "controll_link right" ) %>
+				<%= link_to(image_tag("delete-icon.png",:size => "20x20", :alt => "delete_"+new_arrival.id.to_s) , admin_new_arrival_path(new_arrival), method: :delete, :confirm => "Are You Sure to Delete「"+item.name+"」?" , :class => "controll_link left") %>
+			</td>
+			<% end %>
+			<td class="center"><%= link_to new_arrival.item_id, admin_new_arrival_path(new_arrival) , class: "link" %></td>
+			<td class="center">
+				<%= item.name %>
+			</td>
+			<td class="center">
+				<% main_image=MainImage.where(item_id: new_arrival.item_id.to_i) %>
+				<% if main_image.present? %>
+					<%= link_to image_tag(url_for(:action => "get_image1", :controller => "admin/items", :id => new_arrival.item_id.to_i),:size => "50x50", :alt => item.name+"_MainImg"), admin_item_path(item) , class: "link" %>
+				<% end %>
+			</td>
+			<td class="center"><%= simple_format(new_arrival.new_comment) %></td>
+			<td><%= simple_format(new_arrival.comment) %></td>
+			<td class="center"><%= item.sold_flag %></td>
+			<td class="center"><%= item.create_user %></td>
+			<td class="center"><%= new_arrival.edit_user %></td>
+			<td class="center"><%= new_arrival.created_at.try(:strftime,"%Y/%m/%d") %></td>
+			<td class="center"><%= new_arrival.updated_at.try(:strftime,"%Y/%m/%d") %></td>
+		</tr>
+		<% end %>
+	</table>
+<% end %>
+</div>
+<% else %>
+	<p class="no_item">No NEW ARRIVAL Registered !</p>
+<% end %>
+
+<% else %>
+<%= render "shared/login_form" %>
+<% end %>

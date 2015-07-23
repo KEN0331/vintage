@@ -1,0 +1,88 @@
+<% @page_title = "contents_name" %>
+<table class="show_item">
+	<tr>
+		<td colspan="4" class="main_img">
+			<% main_image=MainImage.where(item_id: @showitem).first %>
+			<% if main_image.present? %>
+			<%= image_tag(url_for(:action => "get_image1", :id => @showitem),:size => "350x350", :alt => @showitem.name+"_MainImg", :align => "middle", :id => "main_image", :name => "main_image") %>
+			<% end %>
+		</td>
+	</tr>
+	<tr class="sub_imgs">
+		<td>
+			<% main_image=MainImage.where(item_id: @showitem).first %>
+			<% if main_image.present? %>
+			<%= image_tag(url_for(:action => "get_image1", :id => @showitem),:size => "70x70", :alt => @showitem.name+"_Img1", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image1?id="+@showitem.id.to_s+"'); void(0);") %>
+			<% end %>
+		</td>
+		<td>
+			<% subimage=Subimage.where(item_id: @showitem).first %>
+			<% if subimage.present? %>
+			<%= image_tag(url_for(:action => "get_image2", :id => @showitem),:size => "70x70", :alt => @showitem.name+"_Img2", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image2?id="+@showitem.id.to_s+"'); void(0);") %>
+			<% end %>
+		</td>
+		<td>
+			<% subimage=Subimage.where(item_id: @showitem).offset(1).first %>
+			<% if subimage.present? %>
+			<%= image_tag(url_for(:action => "get_image3", :id => @showitem),:size => "70x70", :alt => @showitem.name+"_Img3", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image3?id="+@showitem.id.to_s+"'); void(0);") %>
+			<% end %>
+		</td>
+		<td>
+			<% subimage=Subimage.where(item_id: @showitem).offset(2).first %>
+			<% if subimage.present? %>
+			<%= image_tag(url_for(:action => "get_image4", :id => @showitem),:size => "70x70", :alt => @showitem.name+"_Img4", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image4?id="+@showitem.id.to_s+"'); void(0);") %>
+			<% end %>
+		</td>
+	</tr>
+</table>
+<div class="item_info">
+	<h1> <%= @showitem.name %> </h1>
+	<p class="label">price</p>
+	<% denomination=Denomination.find(@showitem.denomination_id)%>
+	<% fabric=Fabric.find(@showitem.fabric_id)%>
+	<% condition=Condition.find(@showitem.condition_id)%>
+	<p class="info"><%= denomination.name+" "+@showitem.price.to_s %></p>
+	<p class="label">size</p>
+	<div class="info"><%= simple_format(@showitem.size) %></div>
+	<p class="label">fabric</p>
+	<p class="info"><%= fabric.name %></p>
+	<p class="label">condition</p>
+	<p class="info"><%= condition.name %></p>
+	<p class="label">description</p>
+	<p class="description"><%= @showitem.description %></p>
+</div>
+<div class="related_item">
+	<table class="related_items">
+		<% @related_items.in_groups_of(2) do |row| %>
+		<tr>
+			<% row.each do |item| %>
+			<td>
+				<% if item %>
+				<% denomination=Denomination.find(item.denomination_id)%>
+				<div class="related_img">
+					<% main_image=MainImage.where(item_id: item).first %>
+					<% if main_image.present? %>
+						<%= link_to(image_tag(url_for(:action => "get_image1", :id => item.id),:size => "70x70", :alt => item.name) , show_item_path(:item => item) ) %>
+					<% end %>
+				</div>
+				<% end %>
+			</td>
+			<% end %>
+		</tr>
+		<% end %>
+	</table>
+</div>
+<div class="condition">
+	<table class="condition_rule">
+		<tr>
+			<th><b>◎</b></th>
+			<td>傷や汚れがなく新品に近い状態です。</td>
+			<th><b>○</b></th>
+			<td>傷や汚れが少なく、<br>問題なくご使用いただけます。</td>
+			<th><b>△</b></th>
+			<td>多少の傷はありますが、<br>大切にご使用いただけます。</td>
+			<th><b>×</b></th>
+			<td>観賞用やコレクションとしてお求めいただけます。</td>
+		</tr>
+	</table>
+</div>

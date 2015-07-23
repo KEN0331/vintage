@@ -1,0 +1,27 @@
+<% @page_title = "contents_name" %>
+<% if @current_user %>
+<%= render "shared/admin/info_bar" %>
+<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+<div class="controll">
+	<%= link_to(image_tag("edit-icon.png",:size => "30x30", :alt => "edit_"+@unit.id.to_s) , [:edit, :admin, @unit] ) %>
+	<%= link_to(image_tag("delete-icon.png",:size => "30x30", :alt => "delete_"+@unit.id.to_s) , admin_unit_path(@unit), method: :delete, confirm: "Are You Sure to Delete「"+@unit.name+"」?" ) %>
+</div>
+<% end %>
+<div class="item_info">
+	<h1> <%= @unit.name %> </h1>
+	<p class="label">unit</p>
+	<p class="info"><%= @unit.unit %></p>
+	<p class="label">creator</p>
+	<p class="info"><%= @unit.create_user %></p>
+	<p class="label">editor</p>
+	<p class="info"><%= @unit.edit_user %></p>
+	<p class="label">created at</p>
+	<p class="info"><%= @unit.created_at.try(:strftime,"%Y/%m/%d %H:%M") %></p>
+	<p class="label">edited at</p>
+	<p class="info"><%= @unit.updated_at.try(:strftime,"%Y/%m/%d %H:%M") %></p>
+	<p class="label">comment</p>
+	<p class="info"><%= simple_format(@unit.comment) %></p>
+</div>
+<% else %>
+<%= render "shared/login_form" %>
+<% end %>

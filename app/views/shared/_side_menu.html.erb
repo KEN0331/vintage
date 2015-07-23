@@ -1,0 +1,12 @@
+<div class="side_menu">
+	<h2>Categories</h2>
+	<ul>
+		<li><%= link_to_unless_current "HOME", root_path %></li>
+	<% @categories.zip(@subcategories_list).each do |category,subcategories| %>
+		<li><%= link_to_unless_current category.name, categorized_path(category:category, category_name: category.name)  %></li>
+		<% subcategories.each do |subcategory| %>
+		<li class="subcategory"><%= link_to_unless_current subcategory.name, categorized_path(category: category, subcategory: subcategory, category_name: category.name, subcategory_name: subcategory.name)  %></li>
+		<% end %>
+	<% end %>
+	</ul>
+</div>

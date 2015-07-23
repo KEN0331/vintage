@@ -1,0 +1,30 @@
+<% @page_title = "Recommend" %>
+<%= image_tag("top/RECOMMEND.jpg", :size => "980x300", :alt => "Recommended", class: :"title-img") %>
+<%= render "shared/side_menu" %>
+<table class="items">
+	<% @recommendations.in_groups_of(3) do |row| %>
+	<tr>
+		<% row.each do |recommendation| %>
+		<td>
+			<% if recommendation %>
+			<% item=Item.find(recommendation.item_id) %>
+			<% denomination=Denomination.find(item.denomination_id)%>
+			<% if item.sold_flag %>
+			<div class="soldout">
+				<p>sold out</p>
+			</div>
+			<% end %>
+			<div class="item_img">
+				<% main_image=MainImage.where(item_id: item).first %>
+				<% if main_image.present? %>
+					<%= link_to(image_tag(url_for(:action => "get_image1", :id => item.id),:size => "150x150", :alt => item.name) , show_item_path(:item => item) ) %>
+				<% end %>
+			</div>
+			<p class="price"><%= link_to denomination.name+" "+item.price.to_s, show_item_path(:item => item) %></p>
+			<% end %>
+		</td>
+		<% end %>
+	</tr>
+	<% end %>
+</table>
+<%= will_paginate @recommendations %>

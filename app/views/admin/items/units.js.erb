@@ -1,0 +1,1 @@
+$("#item_size").val("<% @unit.each do |unit| %><%= Unit.find(unit).name %>:   <%= Unit.find(unit).unit %>   <% end %>");

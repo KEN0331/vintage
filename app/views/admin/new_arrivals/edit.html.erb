@@ -1,0 +1,58 @@
+<% @page_title = "contents_name" %>
+<% if @current_user && (@current_user.authority_id==1||@current_user.authority_id==2) %>
+<% item=Item.find(@new_arrival.item_id)%>
+<%= render "shared/admin/info_bar" %>
+<table class="show_item">
+	<tr>
+		<td colspan="4" class="main_img">
+			<% main_image=MainImage.where(item_id: @new_arrival.item_id.to_i) %>
+			<% if main_image.present? %>
+			<%= image_tag(url_for(:action => "get_image1", :controller => "admin/items", :id => @new_arrival.item_id.to_i),:size => "350x350", :alt => "Item"+@new_arrival.item_id.to_s+"_MainImg", :align => "middle", :id => "main_image", :name => "main_image") %>
+			<% end %>
+		</td>
+	</tr>
+	<tr class="sub_imgs">
+		<td>
+			<% main_image=MainImage.where(item_id: @new_arrival.item_id.to_i) %>
+			<% if main_image.present? %>
+			<%= image_tag(url_for(:action => "get_image1", :controller => "admin/items", :id => @new_arrival.item_id.to_i),:size => "70x70", :alt => "Item"+@new_arrival.item_id.to_s+"_Img1", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image1?id="+@new_arrival.item_id.to_s+"'); void(0);") %>
+			<% end %>
+		</td>
+		<td>
+			<% subimage=Subimage.where(item_id: @new_arrival.item_id.to_i).first %>
+			<% if subimage.present? %>
+			<%= image_tag(url_for(:action => "get_image2", :controller => "admin/items", :id => @new_arrival.item_id.to_i),:size => "70x70", :alt => "Item"+@new_arrival.item_id.to_s+"_Img2", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image2?id="+@new_arrival.item_id.to_s+"'); void(0);") %>
+			<% end %>
+		</td>
+		<td>
+			<% subimage=Subimage.where(item_id: @new_arrival.item_id.to_i).offset(1).first %>
+			<% if subimage.present? %>
+			<%= image_tag(url_for(:action => "get_image3", :controller => "admin/items", :id => @new_arrival.item_id.to_i),:size => "70x70", :alt => "Item"+@new_arrival.item_id.to_s+"_Img3", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image3?id="+@new_arrival.item_id.to_s+"'); void(0);") %>
+			<% end %>
+		</td>
+		<td>
+			<% subimage=Subimage.where(item_id: @new_arrival.item_id.to_i).offset(2).first %>
+			<% if subimage.present? %>
+			<%= image_tag(url_for(:action => "get_image4", :controller => "admin/items", :id => @new_arrival.item_id.to_i),:size => "70x70", :alt => "Item"+@new_arrival.item_id.to_s+"_Img4", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image4?id="+@new_arrival.item_id.to_s+"'); void(0);") %>
+			<% end %>
+		</td>
+	</tr>
+</table>
+<%= form_for [:admin, @new_arrival] do |form| %>
+<div class="item_info">
+	<h1> <%= item.name %> </h1>
+	<%= form.hidden_field :edit_user, :value => @current_user.name %>
+	<p class="label">new comment</p>
+	<p class="description"><%= form.text_area :new_comment %></p>
+	<p class="label">comment</p>
+	<p class="description"><%= form.text_area :comment %></p>
+	<div class="button">
+		<%= form.submit "UPDATE", :class => "update_button" %>
+	</div>
+</div>
+<% end %>
+<% elsif @current_user && @current_user.authority_id!=1 && @current_user.authority_id!=2 %>
+<%= render "shared/auth_err" %>
+<% else %>
+<%= render "shared/login_form" %>
+<% end %>
