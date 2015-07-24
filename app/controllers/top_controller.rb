@@ -11,8 +11,8 @@ class TopController < ApplicationController
   end
   
   def show_item
-    @showitem=Item.where(id: params[:item]).first
-    @related_items=Item.where(subcategory_id: @showitem.subcategory_id, sold_flag: false).where.not(id: params[:item]).all.sample(8)
+    @showitem=Item.active.where(id: params[:item]).first
+    @related_items=Item.where(subcategory_id: @showitem.subcategory_id, sold_flag: false).where.not(id: params[:item]).active.all.sample(8)
   end
   
   def categorized
