@@ -16,6 +16,8 @@ Rails.application.config.assets.precompile += %w( authorities.css )
 Rails.application.config.assets.precompile += %w( administrators.css )
 Rails.application.config.assets.precompile += %w( jquery.bxslider.css )
 Rails.application.config.assets.precompile += %w( jquery.bxslider.min.js )
+Rails.application.config.assets.precompile += %w( mosaic.css )
+Rails.application.config.assets.precompile += %w( mosaic.1.0.1.min.js )
 Rails.application.config.assets.precompile += %w( new_arrivals.css )
 Rails.application.config.assets.precompile += %w( recommendations.css )
 # Precompile additional assets.

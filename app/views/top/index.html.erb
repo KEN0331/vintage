@@ -12,17 +12,26 @@
 		<% row.each do |item| %>
 		<td>
 			<% if item %>
-			<% denomination=Denomination.find(item.denomination_id)%>
-			<% if item.sold_flag %>
-			<div class="soldout">
-				<p>sold out</p>
-			</div>
-			<% end %>
-			<div class="item_img">
-				<% main_image=MainImage.where(item_id: item).first %>
-				<% if main_image.present? %>
-					<%= link_to(image_tag(url_for(:action => "get_image1", :id => item.id),:size => "150x150", :alt => item.name) , show_item_path(:item => item) ) %>
-				<% end %>
+			<div class="mosaic-block bar">
+				<a href=<%= show_item_path(:item => item) %> target="_blank" class="mosaic-overlay">
+					<div class="details">
+						<%= image_tag("add.png",{:size => "150x150", :alt => "add"}) %>
+					</div>
+				</a>
+				<div class="mosaic-backdrop">
+					<% denomination=Denomination.find(item.denomination_id)%>
+					<% if item.sold_flag %>
+					<div class="soldout">
+						<p>sold out</p>
+					</div>
+					<% end %>
+					<div class="item_img">
+						<% main_image=MainImage.where(item_id: item).first %>
+						<% if main_image.present? %>
+							<%= link_to(image_tag(url_for(:action => "get_image1", :id => item.id),:size => "150x150", :alt => item.name) , show_item_path(:item => item) ) %>
+						<% end %>
+					</div>
+				</div>
 			</div>
 			<p class="price"><%= link_to denomination.name+" "+item.price.to_s, show_item_path(:item => item) %></p>
 			<% end %>
