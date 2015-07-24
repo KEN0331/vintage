@@ -1,6 +1,7 @@
 <% @page_title = "New Arrivals" %>
 <%= image_tag("top/NEW_ARRIVAL.jpg", :size => "980x300", :alt => "NEW ARRIVAL", class: :"title-img") %>
 <%= render "shared/side_menu" %>
+<%= will_paginate @new_arrivals %>
 <table class="items">
 	<% @new_arrivals.in_groups_of(3) do |row| %>
 	<tr>

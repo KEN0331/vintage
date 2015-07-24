@@ -1,6 +1,7 @@
 <% @page_title = "Recommend" %>
 <%= image_tag("top/RECOMMEND.jpg", :size => "980x300", :alt => "Recommended", class: :"title-img") %>
 <%= render "shared/side_menu" %>
+<%= will_paginate @recommendations %>
 <table class="items">
 	<% @recommendations.in_groups_of(3) do |row| %>
 	<tr>
