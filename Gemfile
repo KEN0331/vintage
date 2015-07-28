@@ -37,6 +37,9 @@ gem 'nested_form'
 #Use paginate
 gem 'will_paginate', '~> 3.0'
 
+#Use activerecord-session_store
+gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
+
 # Use debugger2
 #gem 'debugger2', '~> 1.0.0.beta2', group: [:development, :test]
 

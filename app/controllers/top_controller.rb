@@ -55,6 +55,16 @@ class TopController < ApplicationController
   def contact
     
   end
+  
+  def add
+    session[:cart] ||= Cart.new
+    if params[:id]
+      item = Item.find(params[:id])
+      session[:cart].add_to_cart(item)
+    end
+    @cart = session[:cart]
+    render :action => 'cart.html.erb'
+  end
 
   def search
     @items=Item.search(params[:q]).paginate(:page => params[:page], :per_page => 15)

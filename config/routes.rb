@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get "blog" => "top#blog"
   get "contact" => "top#contact"
   get "search" => "top#search"
+  get "cart" => "top#add"
 
 
 
