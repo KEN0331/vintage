@@ -4,7 +4,7 @@
 		<td colspan="4" class="main_img">
 			<% main_image=MainImage.where(item_id: @showitem).first %>
 			<% if main_image.present? %>
-			<%= image_tag(url_for(:action => "get_image1", :id => @showitem),:size => "350x350", :alt => @showitem.name+"_MainImg", :align => "middle", :id => "main_image", :name => "main_image") %>
+			<%= image_tag(url_for(:action => "get_image1", :id => @showitem),:size => "235x350", :alt => @showitem.name+"_MainImg", :align => "middle", :id => "main_image", :name => "main_image") %>
 			<% end %>
 		</td>
 	</tr>
@@ -12,25 +12,25 @@
 		<td>
 			<% main_image=MainImage.where(item_id: @showitem).first %>
 			<% if main_image.present? %>
-			<%= image_tag(url_for(:action => "get_image1", :id => @showitem),:size => "70x70", :alt => @showitem.name+"_Img1", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image1?id="+@showitem.id.to_s+"'); void(0);") %>
+			<%= image_tag(url_for(:action => "get_image1", :id => @showitem),:size => "47x70", :alt => @showitem.name+"_Img1", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image1?id="+@showitem.id.to_s+"'); void(0);") %>
 			<% end %>
 		</td>
 		<td>
 			<% subimage=Subimage.where(item_id: @showitem).first %>
 			<% if subimage.present? %>
-			<%= image_tag(url_for(:action => "get_image2", :id => @showitem),:size => "70x70", :alt => @showitem.name+"_Img2", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image2?id="+@showitem.id.to_s+"'); void(0);") %>
+			<%= image_tag(url_for(:action => "get_image2", :id => @showitem),:size => "47x70", :alt => @showitem.name+"_Img2", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image2?id="+@showitem.id.to_s+"'); void(0);") %>
 			<% end %>
 		</td>
 		<td>
 			<% subimage=Subimage.where(item_id: @showitem).offset(1).first %>
 			<% if subimage.present? %>
-			<%= image_tag(url_for(:action => "get_image3", :id => @showitem),:size => "70x70", :alt => @showitem.name+"_Img3", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image3?id="+@showitem.id.to_s+"'); void(0);") %>
+			<%= image_tag(url_for(:action => "get_image3", :id => @showitem),:size => "47x70", :alt => @showitem.name+"_Img3", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image3?id="+@showitem.id.to_s+"'); void(0);") %>
 			<% end %>
 		</td>
 		<td>
 			<% subimage=Subimage.where(item_id: @showitem).offset(2).first %>
 			<% if subimage.present? %>
-			<%= image_tag(url_for(:action => "get_image4", :id => @showitem),:size => "70x70", :alt => @showitem.name+"_Img4", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image4?id="+@showitem.id.to_s+"'); void(0);") %>
+			<%= image_tag(url_for(:action => "get_image4", :id => @showitem),:size => "47x70", :alt => @showitem.name+"_Img4", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image4?id="+@showitem.id.to_s+"'); void(0);") %>
 			<% end %>
 		</td>
 	</tr>
@@ -62,7 +62,7 @@
 				<div class="related_img">
 					<% main_image=MainImage.where(item_id: item).first %>
 					<% if main_image.present? %>
-						<%= link_to(image_tag(url_for(:action => "get_image1", :id => item.id),:size => "70x70", :alt => item.name) , show_item_path(:item => item) ) %>
+						<%= link_to(image_tag(url_for(:action => "get_image1", :id => item.id),:size => "47x70", :alt => item.name) , show_item_path(:item => item) ) %>
 					<% end %>
 				</div>
 				<% end %>

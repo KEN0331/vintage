@@ -20,7 +20,7 @@
 	position:relative;
 	overflow:hidden;
 	width:150px;
-	height:150px;
+	height:225px;
 }
 
 	.mosaic-backdrop {
@@ -55,9 +55,9 @@
 		}
 		
 		.bar .mosaic-overlay {
-			bottom:-150px;
-			height:150px;
-			background:url("bg-black.png");
+			bottom:-225px;
+			height:225px;
+			background-color: rgba(55,55,55,0.6);
 		}
 		
 		.bar2 .mosaic-overlay {
