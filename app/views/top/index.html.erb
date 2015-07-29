@@ -13,11 +13,13 @@
 		<td>
 			<% if item %>
 			<div class="mosaic-block bar">
+				<% if !item.sold_flag %>
 				<a href=<%= cart_path(:id => item.id) %> class="mosaic-overlay">
 					<div class="details">
 						<%= image_tag("add.png",{:size => "150x225", :alt => "add"}) %>
 					</div>
 				</a>
+				<% end %>
 				<div class="mosaic-backdrop">
 					<% denomination=Denomination.find(item.denomination_id)%>
 					<% if item.sold_flag %>

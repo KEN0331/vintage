@@ -61,4 +61,23 @@ class Cart
 #      c.count * "0"
 #    }
 #  end
+  
+  def destroy(int)
+    @items.delete_at(int)
+  end
+  
+  def plural_destroy(checked_item_int)
+    if checked_item_int
+      integers = checked_item_int.keys
+      item_count = integers.size
+      i=0
+      integers.each do |int|
+        @items[int.to_i]="deleted"
+        i=i+1
+      end
+      if i=item_count
+        @items.delete("deleted")
+      end
+    end
+  end
 end

@@ -13,7 +13,14 @@ Rails.application.routes.draw do
   get "contact" => "top#contact"
   get "search" => "top#search"
   get "cart" => "top#add"
+  get "delete_cart_item" => "top#delete_cart_item"
+  get 'thanks' => 'top#thanks'
+  post "plural_delete_cart_item" => "top#plural_delete_cart_item"
 
+
+  
+  
+  get 'pay' => 'webpay#pay'
 
 
   namespace :admin do

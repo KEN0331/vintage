@@ -1,47 +1,35 @@
 <% items=@cart.items %>
 <% if items.present? %>
 <div class="table">
+<%= form_tag(:action=> 'plural_delete_cart_item') do %>
 	<table border="1">
 		<tr>
+			<th class="center" width="55px">
+				<p class="column_title">
+					<%= image_submit_tag("delete-all-icon.png",:class => "plural_delete", :alt => "plural_delete") %>
+					<%= check_box_tag "check_all",{}, false, :id => "check_all", :onclick => "AllChecked();" %>
+				</p>
+			</th>
 			<th class="center" width="40px"><p class="column_title">ID</p></th>
+			<th class="center" width="70px"></th>
 			<th class="center" width="250px"><p class="column_title">NAME</p></th>
-			<th class="center" width="130px"><p class="column_title">SUBCATEGORY</p></th>
-			<th class="center" width="100px"><p class="column_title">CATEGORY</p></th>
 			<th class="center" width="90px"><p class="column_title">PRICE</p></th>
-			<th class="center" width="100px"><p class="column_title">CONDITION</p></th>
-			<th class="center" width="200px"><p class="column_title">SIZE</p></th>
-			<th class="center" width="70px"><p class="column_title">FABRIC</p></th>
 			<th class="center" width="70px"><p class="column_title">IMAGE1</p></th>
 			<th class="center" width="70px"><p class="column_title">IMAGE2</p></th>
 			<th class="center" width="70px"><p class="column_title">IMAGE3</p></th>
 			<th class="center" width="70px"><p class="column_title">IMAGE4</p></th>
-			<th class="center" width="250px"><p class="column_title">DESCRIPTION</p></th>
-			<th class="center" width="60px"><p class="column_title">SOLD</p></th>
 		</tr>
+		<% i = -1 %>
 		<% items.each do|item|  %>
+		<% i += 1 %>
 		<tr class="<%= cycle("even", "odd") -%>">
-			<td class="center"><%= link_to item.id, admin_item_path(item) , class: "link" %></td>
-			<td class="center"><%= link_to item.name, admin_item_path(item) , class: "link" %></td>
-			<td class="center">
-				<% subcategory=Subcategory.find(item.subcategory_id)%>
-				<%= subcategory.name %>
-			</td>
-			<td class="center">
-				<% category=Category.find(subcategory.category_id) %>
-				<%= category.name %>
-			</td>
+			<td class="center"><%= check_box_tag "checked_items[#{i}]", i, false, :class => "del_check" %></td>
+			<td class="center"><%= link_to item.id, show_item_path(item) , class: "link" %></td>
+			<td class="center"><%= link_to(image_tag("delete-icon.png",:size => "20x20", :alt => "delete_"+i.to_s) , delete_cart_item_path(:no => i), :class => "controll_link left") %></td>
+			<td class="center"><%= link_to item.name, show_item_path(item) , class: "link" %></td>
 			<td class="center">
 				<% denomination=Denomination.find(item.denomination_id)%>
 				<%= denomination.name+item.price.to_s %>
-			</td>
-			<td class="center">
-				<% condition=Condition.find(item.condition_id)%>
-				<%= condition.name %>
-			</td>
-			<td class="center"><%= simple_format(item.size) %></td>
-			<td class="center">
-				<% fabric=Fabric.find(item.fabric_id)%>
-				<%= fabric.name %>
 			</td>
 			<td class="center">
 				<% main_image=MainImage.where(item_id: item) %>
@@ -67,10 +55,11 @@
 					<%= image_tag(url_for(:action => "get_image4", :id => item.id),:size => "50x50", :alt => item.name+"_4") %>
 				<% end %>
 			</td>
-			<td><%= simple_format(item.description) %></td>
-			<td class="center"><%= item.sold_flag %></td>
 		</tr>
 		<% end %>
-		<tr><td><%= @cart.getTotalPrice %></td></tr>
+		<% amount = @cart.getTotalPrice %>
+		<tr><td><%= amount %></td></tr>
 	</table>
+	<%= link_to "pay", thanks_path(:amount => amount, :items => items) , class: "link" %>
+<% end %>
 <% end %>

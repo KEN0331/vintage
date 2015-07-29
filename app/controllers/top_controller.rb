@@ -60,10 +60,36 @@ class TopController < ApplicationController
     session[:cart] ||= Cart.new
     if params[:id]
       item = Item.find(params[:id])
-      session[:cart].add_to_cart(item)
+      if !item.sold_flag
+        session[:cart].add_to_cart(item)
+      end
     end
     @cart = session[:cart]
     render :action => 'cart.html.erb'
+  end
+  
+  def delete_cart_item
+    if session[:cart]
+      @cart = session[:cart]
+      @cart.destroy(params[:no].to_i)
+    end
+    render :action => 'cart.html.erb'
+  end
+  
+  def plural_delete_cart_item
+    if session[:cart]
+      @cart = session[:cart]
+      @cart.plural_destroy(params[:checked_items])
+    end
+    render :action => 'cart.html.erb'
+  end
+  
+  def thanks
+    check = CheckController.new
+    if check.pay(params[:amount])
+      params[:items]
+      session[:cart] = Cart.new
+    end
   end
 
   def search
