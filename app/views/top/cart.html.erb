@@ -1,7 +1,8 @@
 <% items=@cart.items %>
+<% amount = @cart.getTotalPrice %>
 <% if items.present? %>
 <div class="table">
-<%= form_tag(:action=> 'plural_delete_cart_item') do %>
+<%= form_tag(:action => 'plural_delete_cart_item') do %>
 	<table border="1">
 		<tr>
 			<th class="center" width="55px">
@@ -61,5 +62,10 @@
 		<tr><td><%= amount %></td></tr>
 	</table>
 	<%= link_to "pay", thanks_path(:amount => amount, :items => items) , class: "link" %>
+<% end %>
+<%= form_tag(thanks_path, method: :get) do %>
+	<%= hidden_field_tag :amount, amount %>
+	<%= hidden_field_tag :items, items %>
+	<script src="https://checkout.webpay.jp/v1/" class="webpay-button" data-key="test_public_8aJ7sXdJi4yn8m6eMs1Ze41K"></script>
 <% end %>
 <% end %>

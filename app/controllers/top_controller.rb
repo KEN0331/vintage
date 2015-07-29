@@ -89,6 +89,7 @@ class TopController < ApplicationController
     if check.pay(params[:amount])
       params[:items]
       session[:cart] = Cart.new
+      redirect_to action: :thanks
     end
   end
 

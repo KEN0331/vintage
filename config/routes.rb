@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
   
   
-  get 'pay' => 'webpay#pay'
+  get 'pay' => 'check#pay'
 
 
   namespace :admin do
