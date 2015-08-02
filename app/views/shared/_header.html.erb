@@ -1,7 +1,20 @@
 <header>
 	<ul>
 		<li><%= link_to_unless_current "HOME", root_path %></li>
-		<li><%= link_to_unless_current "LOG IN", "#" %></li>
+		<li>
+			<!-- user_signed_in? はユーザがログインしているか調べるdeviseのHelperメソッド -->
+		    <% if user_signed_in? %> 
+		      <!-- current_user は現在ログインしているUserオブジェクトを返すdeviseのHelperメソッド -->
+		      <!-- *_path はUserモデルを作成したときに、
+		        deviseにより自動で作成されてますので、rake routesで確認できます -->
+		      <p>ログイン中: <%= current_user.name %></p>
+		      <%= link_to 'プロフィール変更', edit_user_registration_path %> |
+		      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+		    <% else %>
+		      <%= link_to "サインイン", new_user_registration_path %> |
+		      <%= link_to "ログイン", new_user_session_path %>
+		    <% end %>
+		</li>
 	</ul>
 	<div class="Logo">
 		<a href="<%= root_path %>">

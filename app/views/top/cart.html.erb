@@ -1,3 +1,4 @@
+<%= render "shared/side_menu" %>
 <% items=@cart.items %>
 <% amount = @cart.getTotalPrice %>
 <% if items.present? %>
@@ -11,7 +12,6 @@
 					<%= check_box_tag "check_all",{}, false, :id => "check_all", :onclick => "AllChecked();" %>
 				</p>
 			</th>
-			<th class="center" width="40px"><p class="column_title">ID</p></th>
 			<th class="center" width="70px"></th>
 			<th class="center" width="250px"><p class="column_title">NAME</p></th>
 			<th class="center" width="160px"><p class="column_title">IMAGE</p></th>
@@ -22,9 +22,8 @@
 		<% i += 1 %>
 		<tr class="<%= cycle("even", "odd") -%>">
 			<td class="center"><%= check_box_tag "checked_items[#{i}]", i, false, :class => "del_check" %></td>
-			<td class="center"><%= link_to item.id, show_item_path(item) , class: "link" %></td>
 			<td class="center"><%= link_to(image_tag("delete-icon.png",:size => "20x20", :alt => "delete_"+i.to_s) , delete_cart_item_path(:no => i), :class => "controll_link left") %></td>
-			<td class="center"><%= link_to item.name, show_item_path(item) , class: "link" %></td>
+			<td class="center"><%= item.name %></td>
 			<td class="center">
 				<% main_image=MainImage.where(item_id: item) %>
 				<% if main_image.present? %>
@@ -38,8 +37,12 @@
 		</tr>
 		<% end %>
 		<% amount = @cart.getTotalPrice %>
-		<tr><td><%= amount %></td></tr>
+		<tr class="total_th">
+			<td colspan="4" class="center">TOTAL</td>
+			<td class="center"	>¥<%= amount %></td>
+		</tr>
 	</table>
+</div>
 <% end %>
 <%= form_tag(confirm_path, method: :post) do %>
     <fieldset>

@@ -1,5 +1,5 @@
 <% @page_title = "contents_name" %>
-<% if @current_user && (@current_user.authority_id==1||@current_user.authority_id==2) %>
+<% if @current_admin_user && (@current_admin_user.authority_id==1||@current_admin_user.authority_id==2) %>
 <% item=Item.find(@new_arrival.item_id)%>
 <%= render "shared/admin/info_bar" %>
 <table class="show_item">
@@ -41,7 +41,7 @@
 <%= form_for [:admin, @new_arrival] do |form| %>
 <div class="item_info">
 	<h1> <%= item.name %> </h1>
-	<%= form.hidden_field :edit_user, :value => @current_user.name %>
+	<%= form.hidden_field :edit_user, :value => @current_admin_user.name %>
 	<p class="label">new comment</p>
 	<p class="description"><%= form.text_area :new_comment %></p>
 	<p class="label">comment</p>
@@ -51,7 +51,7 @@
 	</div>
 </div>
 <% end %>
-<% elsif @current_user && @current_user.authority_id!=1 && @current_user.authority_id!=2 %>
+<% elsif @current_admin_user && @current_admin_user.authority_id!=1 && @current_admin_user.authority_id!=2 %>
 <%= render "shared/auth_err" %>
 <% else %>
 <%= render "shared/login_form" %>

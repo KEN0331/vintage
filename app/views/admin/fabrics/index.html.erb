@@ -1,7 +1,7 @@
 <% @page_title = "fabrics" %>
-<% if @current_user %>
+<% if @current_admin_user %>
 <%= render "shared/admin/info_bar" %>
-<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
 <p class="controll_column_title_top">
 	<%= link_to(image_tag("new.png",:size => "40x40", :alt => "new") , new_admin_fabric_path ) %>
 </p>
@@ -13,7 +13,7 @@
 <%= form_tag(:action=> 'plural_destroy') do %>
 	<table border="1">
 		<tr>
-			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
 			<th class="center" width="55px">
 				<p class="column_title">
 					<%= image_submit_tag("delete-all-icon.png",:class => "plural_delete", :alt => "plural_delete") %>
@@ -22,7 +22,7 @@
 			</th>
 			<% end %>
 			<th class="center" width="40px"><p class="column_title">ID</p></th>
-			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
 			<th class="center" width="70px">
 				<p class="controll_column_title">
 					<%= link_to(image_tag("new.png",:size => "40x40", :alt => "new") , new_admin_fabric_path ) %>
@@ -39,11 +39,11 @@
 		</tr>
 		<% @fabrics.each do|fabric|  %>
 		<tr class="<%= cycle("even", "odd") -%>">
-			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
 			<td class="center"><%= check_box_tag "checked_fabrics[#{fabric.id}]", fabric.id, false, :class => "del_check" %></td>
 			<% end %>
 			<td class="center"><%= link_to fabric.id, admin_fabric_path(fabric) , class: "link" %></td>
-			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
 			<td class="center">
 				<%= link_to(image_tag("edit-icon.png",:size => "20x20", :alt => "edit_"+fabric.id.to_s) , [:edit, :admin, fabric], :confirm => "Are You Sure to Delete「"+fabric.name+"」?", :class => "controll_link right" ) %>
 				<%= link_to(image_tag("delete-icon.png",:size => "20x20", :alt => "delete_"+fabric.id.to_s) , admin_fabric_path(fabric), method: :delete, :confirm => "Are You Sure to Delete「"+fabric.name+"」?" , :class => "controll_link left") %>

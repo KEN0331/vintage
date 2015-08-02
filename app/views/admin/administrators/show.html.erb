@@ -1,5 +1,5 @@
 <% @page_title = "contents_name" %>
-<% if @current_user && @current_user.authority_id==1 %>
+<% if @current_admin_user && @current_admin_user.authority_id==1 %>
 <%= render "shared/admin/info_bar" %>
 <div class="controll">
 	<%= link_to(image_tag("edit-icon.png",:size => "30x30", :alt => "edit_"+@administrator.id.to_s) , [:edit, :admin, @administrator] ) %>
@@ -29,7 +29,7 @@
 	<p class="label">comment</p>
 	<p class="info"><%= simple_format(@administrator.comment) %></p>
 </div>
-<% elsif @current_user && @current_user.authority_id!=1 %>
+<% elsif @current_admin_user && @current_admin_user.authority_id!=1 %>
 <%= render "shared/auth_err" %>
 <% else %>
 <%= render "shared/login_form" %>

@@ -1,5 +1,5 @@
 <% @page_title = "contents_name" %>
-<% if @current_user && (@current_user.authority_id==1||@current_user.authority_id==2) %>
+<% if @current_admin_user && (@current_admin_user.authority_id==1||@current_admin_user.authority_id==2) %>
 <%= render "shared/admin/info_bar" %>
 <table class="show_item">
 	<tr>
@@ -62,7 +62,7 @@
 	<p class="info"><%= form.text_field :spike_url %></p>
 	<p class="label">sold</p>
 	<p class="info"><%= form.check_box :sold_flag %></p>
-	<%= form.hidden_field :edit_user, :value => @current_user.name %>
+	<%= form.hidden_field :edit_user, :value => @current_admin_user.name %>
 	<p class="label">description</p>
 	<p class="description"><%= form.text_area :description %></p>
 	<p class="label">comment</p>
@@ -121,7 +121,7 @@
 	</div>
 </div>
 <% end %>
-<% elsif @current_user && @current_user.authority_id!=1 && @current_user.authority_id!=2 %>
+<% elsif @current_admin_user && @current_admin_user.authority_id!=1 && @current_admin_user.authority_id!=2 %>
 <%= render "shared/auth_err" %>
 <% else %>
 <%= render "shared/login_form" %>

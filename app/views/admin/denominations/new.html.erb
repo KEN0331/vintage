@@ -1,12 +1,12 @@
 <% @page_title = "contents_name" %>
-<% if @current_user && (@current_user.authority_id==1||@current_user.authority_id==2) %>
+<% if @current_admin_user && (@current_admin_user.authority_id==1||@current_admin_user.authority_id==2) %>
 <%= render "shared/admin/info_bar" %>
 <%= form_for [:admin, @denomination] do |form| %>
 <div class="item_info">
 	<p class="top_label">DENOMINATION NAME</p>
 	<p class="info"><%= form.text_field :name %></p>
-	<%= form.hidden_field :create_user, :value => @current_user.name %>
-	<%= form.hidden_field :edit_user, :value => @current_user.name %>
+	<%= form.hidden_field :create_user, :value => @current_admin_user.name %>
+	<%= form.hidden_field :edit_user, :value => @current_admin_user.name %>
 	<p class="label">comment</p>
 	<p class="description"><%= form.text_area :comment %></p>
 	<div class="button">
@@ -14,7 +14,7 @@
 	</div>
 </div>
 <% end %>
-<% elsif @current_user && @current_user.authority_id!=1 && @current_user.authority_id!=2 %>
+<% elsif @current_admin_user && @current_admin_user.authority_id!=1 && @current_admin_user.authority_id!=2 %>
 <%= render "shared/auth_err" %>
 <% else %>
 <%= render "shared/login_form" %>

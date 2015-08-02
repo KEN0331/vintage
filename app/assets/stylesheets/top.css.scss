@@ -110,6 +110,60 @@ header li a:hover{
 	float: left;
 }
 
+/* -------- */
+
+.table{
+  overflow-x: scroll;
+}
+
+table{
+  table-layout: fixed;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+th{
+  background-color: rgba(255,255,255,0.6);
+}
+
+td{
+  padding-top: 7px;
+}
+
+.plural_delete{
+  width: 35px;
+  height: 35px  ;
+}
+
+.del_check{
+  margin: 0 auto;
+}
+
+.right{
+  text-align: right;
+}
+
+.left{
+  text-align: left;
+}
+
+.center{
+  text-align: center;
+}
+
+.column_title{
+  padding: 0 10px;
+}
+
+.odd{
+  background-color: rgba(255,255,255,0.6);
+}
+
+.total_th{
+  height: 100px;
+}
+/* -------- */
+
 .show_case{
 	background: rgba(197, 255, 238, 0.4); /* RGBを10進数(0～255)で指定、不透明度を0～1.0で指定 */
 	width: 100%;

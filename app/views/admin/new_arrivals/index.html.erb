@@ -1,5 +1,5 @@
 <% @page_title = "new arrivals" %>
-<% if @current_user %>
+<% if @current_admin_user %>
 <%= render "shared/admin/info_bar" %>
 <p class="controll_column_title_top"></p>
 <% if @new_arrivals.present? %>
@@ -7,7 +7,7 @@
 <%= form_tag(:action=> 'plural_destroy') do %>
 	<table border="1">
 		<tr>
-			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
 			<th class="center" width="55px">
 				<p class="column_title">
 					<%= image_submit_tag("delete-all-icon.png",:class => "plural_delete", :alt => "plural_delete") %>
@@ -31,11 +31,11 @@
 		<% @new_arrivals.each do|new_arrival|  %>
 		<tr class="<%= cycle("even", "odd") -%>">
 			<% item=Item.find(new_arrival.item_id)%>
-			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
 			<td class="center"><%= check_box_tag "checked_new_arrivals[#{new_arrival.id}]", new_arrival.id, false, :class => "del_check" %></td>
 			<% end %>
 			<td class="center"><%= link_to new_arrival.id, admin_new_arrival_path(new_arrival) , class: "link" %></td>
-			<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+			<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
 			<td class="center">
 				<%= link_to(image_tag("edit-icon.png",:size => "20x20", :alt => "edit_"+new_arrival.id.to_s) , [:edit, :admin, new_arrival], :confirm => "Are You Sure to Delete「"+item.name+"」?", :class => "controll_link right" ) %>
 				<%= link_to(image_tag("delete-icon.png",:size => "20x20", :alt => "delete_"+new_arrival.id.to_s) , admin_new_arrival_path(new_arrival), method: :delete, :confirm => "Are You Sure to Delete「"+item.name+"」?" , :class => "controll_link left") %>

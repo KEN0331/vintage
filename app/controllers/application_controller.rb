@@ -13,13 +13,13 @@ class ApplicationController < ActionController::Base
   private
   def authorize
     if session[:administrator_id]
-      @current_user = Administrator.find_by_id(session[:administrator_id])
-      session.delete(:administrator_id) unless @current_user
+      @current_admin_user = Administrator.find_by_id(session[:administrator_id])
+      session.delete(:administrator_id) unless @current_admin_user
     end
   end
   
   def login_required
-    raise Forbidden unless @current_user
+    raise Forbidden unless @current_admin_user
   end
   
 end

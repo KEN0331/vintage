@@ -1,6 +1,6 @@
 <div class="log_info">
 	<%= link_to "LOGOUT", :admin_session, method: :delete, :confirm => "ログアウトしますか？" %>
-	<p class="user_info">CURRENT USER：<%= @current_user.name %></p>
+	<p class="user_info">CURRENT USER：<%= @current_admin_user.name %></p>
 	<p class="info_bar">
 		<% if @administrator %><%= link_to "administrators", admin_administrators_path %><% end %>
 		<% if @authority %><%= link_to "authorities", admin_authorities_path %><% end %>

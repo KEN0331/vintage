@@ -1,7 +1,7 @@
 <% @page_title = "contents_name" %>
-<% if @current_user %>
+<% if @current_admin_user %>
 <%= render "shared/admin/info_bar" %>
-<% if @current_user.authority_id==1||@current_user.authority_id==2 %>
+<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
 <div class="controll">
 	<%= link_to(image_tag("edit-icon.png",:size => "30x30", :alt => "edit_"+@category.id.to_s) , [:edit, :admin, @category] ) %>
 	<%= link_to(image_tag("delete-icon.png",:size => "30x30", :alt => "delete_"+@category.id.to_s) , admin_category_path(@category), method: :delete, confirm: "Are You Sure to Delete「"+@category.name+"」?" ) %>
