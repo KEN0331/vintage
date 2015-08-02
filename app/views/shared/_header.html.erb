@@ -10,7 +10,9 @@
 		</a>
 	</div>
 	<div class="R_header">
+		<% if session[:cart] %>
 		<p>Your Cart <%= link_to_unless_current session[:cart].items.count.to_s+" Items", cart_path %></p>
+		<% end %>
 		<%= form_tag :search, method: :get do %>
 		<p>
 			<%= text_field_tag "q", params[:q] %>

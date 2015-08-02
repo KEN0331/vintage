@@ -12,15 +12,17 @@ Rails.application.routes.draw do
   get "blog" => "top#blog"
   get "contact" => "top#contact"
   get "search" => "top#search"
-  get "cart" => "top#add"
   get "delete_cart_item" => "top#delete_cart_item"
   get 'thanks' => 'top#thanks'
   post "plural_delete_cart_item" => "top#plural_delete_cart_item"
 
 
-  
-  
-  get 'pay' => 'check#pay'
+  post "cart" => "top#add"
+  get "cart" => "top#add"
+  get 'confirm' => 'top#confirm'
+  post 'confirm' => 'top#confirm'
+  get 'pay' => 'top#pay'
+  post 'pay' => 'top#pay'
 
 
   namespace :admin do

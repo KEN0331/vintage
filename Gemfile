@@ -43,6 +43,9 @@ gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 #Use webpay
 gem 'webpay', '~>3.2'
 
+#Use devise
+gem 'devise'
+
 # Use debugger2
 #gem 'debugger2', '~> 1.0.0.beta2', group: [:development, :test]
 

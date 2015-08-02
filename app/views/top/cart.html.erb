@@ -14,11 +14,8 @@
 			<th class="center" width="40px"><p class="column_title">ID</p></th>
 			<th class="center" width="70px"></th>
 			<th class="center" width="250px"><p class="column_title">NAME</p></th>
+			<th class="center" width="160px"><p class="column_title">IMAGE</p></th>
 			<th class="center" width="90px"><p class="column_title">PRICE</p></th>
-			<th class="center" width="70px"><p class="column_title">IMAGE1</p></th>
-			<th class="center" width="70px"><p class="column_title">IMAGE2</p></th>
-			<th class="center" width="70px"><p class="column_title">IMAGE3</p></th>
-			<th class="center" width="70px"><p class="column_title">IMAGE4</p></th>
 		</tr>
 		<% i = -1 %>
 		<% items.each do|item|  %>
@@ -29,43 +26,82 @@
 			<td class="center"><%= link_to(image_tag("delete-icon.png",:size => "20x20", :alt => "delete_"+i.to_s) , delete_cart_item_path(:no => i), :class => "controll_link left") %></td>
 			<td class="center"><%= link_to item.name, show_item_path(item) , class: "link" %></td>
 			<td class="center">
-				<% denomination=Denomination.find(item.denomination_id)%>
-				<%= denomination.name+item.price.to_s %>
-			</td>
-			<td class="center">
 				<% main_image=MainImage.where(item_id: item) %>
 				<% if main_image.present? %>
-					<%= image_tag(url_for(:action => "get_image1", :id => item.id),:size => "50x50", :alt => item.name+"_1") %>
+					<%= image_tag(url_for(:action => "get_image1", :id => item.id),:size => "150x255", :alt => item.name+"_1") %>
 				<% end %>
 			</td>
 			<td class="center">
-				<% subimage=Subimage.where(item_id: item).first %>
-				<% if subimage.present? %>
-					<%= image_tag(url_for(:action => "get_image2", :id => item.id),:size => "50x50", :alt => item.name+"_2") %>
-				<% end %>
-			</td>
-			<td class="center">
-				<% subimage=Subimage.where(item_id: item).offset(1).first %>
-				<% if subimage.present? %>
-					<%= image_tag(url_for(:action => "get_image3", :id => item.id),:size => "50x50", :alt => item.name+"_3") %>
-				<% end %>
-			</td>
-			<td class="center">
-				<% subimage=Subimage.where(item_id: item).offset(2).first %>
-				<% if subimage.present? %>
-					<%= image_tag(url_for(:action => "get_image4", :id => item.id),:size => "50x50", :alt => item.name+"_4") %>
-				<% end %>
+				<% denomination=Denomination.find(item.denomination_id)%>
+				<%= denomination.name+item.price.to_s %>
 			</td>
 		</tr>
 		<% end %>
 		<% amount = @cart.getTotalPrice %>
 		<tr><td><%= amount %></td></tr>
 	</table>
-	<%= link_to "pay", thanks_path(:amount => amount, :items => items) , class: "link" %>
 <% end %>
-<%= form_tag(thanks_path, method: :get) do %>
-	<%= hidden_field_tag :amount, amount %>
-	<%= hidden_field_tag :items, items %>
-	<script src="https://checkout.webpay.jp/v1/" class="webpay-button" data-key="test_public_8aJ7sXdJi4yn8m6eMs1Ze41K"></script>
+<%= form_tag(confirm_path, method: :post) do %>
+    <fieldset>
+    	<legend>はじめての方</legend>
+		<%= hidden_field_tag :amount, amount %>
+		<div class='form-group'>
+			<label class="control-label col-xs-5" for="customer_form_description">性</label>
+			<div class='col-xs-7'>
+				<%= text_field_tag :last_name %>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label class="control-label col-xs-5" for="customer_form_description">名</label>
+			<div class='col-xs-7'>
+				<%= text_field_tag :first_name %>
+			</div>
+		</div>
+			<div class='form-group'>
+			<label class="control-label col-xs-5" for="customer_form_description">性(カナ)</label>
+			<div class='col-xs-7'>
+				<%= text_field_tag :last_name_kana %>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label class="control-label col-xs-5" for="customer_form_description">名(カナ)</label>
+			<div class='col-xs-7'>
+				<%= text_field_tag :first_name_kana %>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label class="control-label col-xs-5" for="customer_form_description">住所</label>
+			<label class="control-label col-xs-5" for="customer_form_description">郵便番号</label>
+			<div class='col-xs-7'>
+				<%= text_field_tag :postal_code_4 %> - <%= text_field_tag :postal_code_3 %>
+			</div>
+			<label class="control-label col-xs-5" for="customer_form_description">都道府県</label>
+			<div class='col-xs-7'>
+				<%= text_field_tag :todohuken %>
+			</div>
+			<label class="control-label col-xs-5" for="customer_form_description">市区町村</label>
+			<div class='col-xs-7'>
+				<%= text_field_tag :shikutyouson %>
+			</div>
+			<label class="control-label col-xs-5" for="customer_form_description">番地・建物名等</label>
+			<div class='col-xs-7'>
+				<%= text_field_tag :adress_detail %>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label class="control-label col-xs-5" for="customer_form_email">メールアドレス</label>
+			<div class='col-xs-7'>
+				<input autofocus="autofocus" class="form-control" id="customer_form_email" name="customer_form[email]" size="30" type="text" />
+			</div>
+		</div>
+		<div class='form-group'>
+			<label class="control-label col-xs-5" for="customer_form_card">カード情報</label>
+			<div class='col-xs-7'>
+				<%= javascript_include_tag "https://checkout.webpay.jp/v1/", class: "webpay-button",:'data-token-name' => "customer_form[card]", :'data-text' => "決済情報入力", :'data-lang' => "ja",
+			                           :"data-submit-text" => "入力完了", :'data-key' => "test_public_8aJ7sXdJi4yn8m6eMs1Ze41K", :'data-partial' => "true" %>
+				<%= submit_tag "内容の確認へ", data: { disable_with: "内容送信中..." } %>
+		    </div>
+		</div>
+	</fieldset>
 <% end %>
 <% end %>

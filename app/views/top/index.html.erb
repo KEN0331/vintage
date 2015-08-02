@@ -14,11 +14,14 @@
 			<% if item %>
 			<div class="mosaic-block bar">
 				<% if !item.sold_flag %>
-				<a href=<%= cart_path(:id => item.id) %> class="mosaic-overlay">
+				<%= form_tag(cart_path, method: :post, :class => "mosaic-overlay") do %>
+					<%= hidden_field_tag :id, item.id %>
+				<!--a href=<%= cart_path(:id => item.id) %> class="mosaic-overlay"-->
 					<div class="details">
-						<%= image_tag("add.png",{:size => "150x225", :alt => "add"}) %>
+						<%= image_submit_tag("add.png",{:size => "150x225", :alt => "add", :class => "add_to_cart"}) %>
 					</div>
-				</a>
+				<!--/a-->
+				<% end %>
 				<% end %>
 				<div class="mosaic-backdrop">
 					<% denomination=Denomination.find(item.denomination_id)%>

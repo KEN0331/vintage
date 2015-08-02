@@ -1,0 +1,97 @@
+<p>氏名</p>
+<p><%= @name %></p>
+<p>氏名(カナ)</p>
+<p><%= @name_kana %></p>
+<p>住所</p>
+<p><%= @adress %></p>
+<p>メールアドレス</p>
+<p><%= @customer.email %></p>
+<p>discription</p>
+<p><%= @customer.description %></p>
+<p>カード有効期限</p>
+<p><%= @customer.active_card.exp_year %>/<%= @customer.active_card.exp_month %></p>
+<p>カード名義</p>
+<p><%= @customer.active_card.name %></p>
+<p>カード種別</p>
+<p><%= @customer.active_card.type %></p>
+<p>カード番号</p>
+<p><%= "**** **** **** " + @customer.active_card.last4 %></p>
+<p>商品</p>
+<% items=@cart.items %>
+<% amount = @cart.getTotalPrice %>
+<% if items.present? %>
+<div class="table">
+	<table border="1">
+		<tr>
+			<th class="center" width="40px"><p class="column_title">ID</p></th>
+			<th class="center" width="250px"><p class="column_title">NAME</p></th>
+			<th class="center" width="90px"><p class="column_title">PRICE</p></th>
+			<th class="center" width="70px"><p class="column_title">IMAGE1</p></th>
+			<th class="center" width="70px"><p class="column_title">IMAGE2</p></th>
+			<th class="center" width="70px"><p class="column_title">IMAGE3</p></th>
+			<th class="center" width="70px"><p class="column_title">IMAGE4</p></th>
+		</tr>
+		<% i = -1 %>
+		<% items.each do|item|  %>
+		<% i += 1 %>
+		<tr class="<%= cycle("even", "odd") -%>">
+			<td class="center"><%= item.id %></td>
+			<td class="center"><%= item.name %></td>
+			<td class="center">
+				<% denomination=Denomination.find(item.denomination_id)%>
+				<%= denomination.name+item.price.to_s %>
+			</td>
+			<td class="center">
+				<% main_image=MainImage.where(item_id: item) %>
+				<% if main_image.present? %>
+					<%= image_tag(url_for(:action => "get_image1", :id => item.id),:size => "50x50", :alt => item.name+"_1") %>
+				<% end %>
+			</td>
+			<td class="center">
+				<% subimage=Subimage.where(item_id: item).first %>
+				<% if subimage.present? %>
+					<%= image_tag(url_for(:action => "get_image2", :id => item.id),:size => "50x50", :alt => item.name+"_2") %>
+				<% end %>
+			</td>
+			<td class="center">
+				<% subimage=Subimage.where(item_id: item).offset(1).first %>
+				<% if subimage.present? %>
+					<%= image_tag(url_for(:action => "get_image3", :id => item.id),:size => "50x50", :alt => item.name+"_3") %>
+				<% end %>
+			</td>
+			<td class="center">
+				<% subimage=Subimage.where(item_id: item).offset(2).first %>
+				<% if subimage.present? %>
+					<%= image_tag(url_for(:action => "get_image4", :id => item.id),:size => "50x50", :alt => item.name+"_4") %>
+				<% end %>
+			</td>
+		</tr>
+		<% end %>
+		<% amount = @cart.getTotalPrice %>
+		<tr><td><%= amount %></td></tr>
+	</table>
+<%= form_tag(pay_path, method: :post) do %>
+
+<%
+# 決済情報 
+%>
+	<%= hidden_field_tag :items, items %>
+	<%= hidden_field_tag :amount, amount %>
+
+<%
+# 顧客情報 
+%>
+	<%= hidden_field_tag :name, @name %>
+	<%= hidden_field_tag :name, @name_kana %>
+	<%= hidden_field_tag :postal_code, @postal_code %>
+	<%= hidden_field_tag :todohuken, @todohuken %>
+	<%= hidden_field_tag :shikutyouson, @shikutyouson %>
+	<%= hidden_field_tag :adress_detail, @adress_detail %>
+	<%= hidden_field_tag :customer_id, @customer.id %>
+
+	<div class='form-group'>
+			<%= submit_tag "購入", data: { disable_with: "決済中..." } %>
+	    </div>
+	</div>
+<% end %>
+<% end %>

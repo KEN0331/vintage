@@ -84,13 +84,42 @@ class TopController < ApplicationController
     render :action => 'cart.html.erb'
   end
   
-  def thanks
-    check = CheckController.new
-    if check.pay(params[:amount])
-      params[:items]
-      session[:cart] = Cart.new
-      redirect_to action: :thanks
+  def confirm
+    if session[:cart]
+      @cart = session[:cart]
     end
+    
+    webpay = WebPay.new('test_secret_bKR1DxbHX7iq0bdaTt8O0157')
+    customer_info = params['customer_form']
+      
+    # 顧客情報詳細(名前 住所)
+    @name = params[:last_name] +"\n"+ params[:first_name]
+    @name_kana =  params[:last_name_kana] +"\n"+ params[:first_name_kana]
+    @postal_code_4 = params[:postal_code_4]
+    @postal_code_3 = params[:postal_code_3]
+    @todohuken = params[:todohuken]
+    @shikutyouson = params[:shikutyouson]
+    @adress_detail = params[:adress_detail]
+    detail = "[氏名： " + @name + "\n/\n " + @name_kana + "] \n[住所： " + @postal_code_4 + " - " + @postal_code_3 + "\n" + @todohuken + @shikutyouson + @adress_detail + "]" 
+    customer_info["description"] = detail 
+    
+    # 顧客情報の登録    
+    @customer = webpay.customer.create(customer_info)
+  end
+  
+  def pay
+    webpay = WebPay.new('test_secret_bKR1DxbHX7iq0bdaTt8O0157')
+    
+    # 顧客情報の登録
+    customer = webpay.customer.retrieve(params[:customer_id])
+
+    # 顧客情報を使って支払い
+    webpay.charge.create(
+      amount: params[:amount],
+      currency: 'jpy',
+      customer: customer.id
+    )
+    session[:cart] = Cart.new
   end
 
   def search
