@@ -4,6 +4,15 @@ class DeviseCreateUsers < ActiveRecord::Migration
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
+      t.string :last_name, null: false, default: ""
+      t.string :first_name, null: false, default: ""
+      t.string :last_name_kana, null: false, default: ""
+      t.string :first_name_kana, null: false, default: ""
+      t.string :postal_code_4, null: false, default: ""
+      t.string :postal_code_3, null: false, default: ""
+      t.string :todohuken, null: false, default: ""
+      t.string :shikutyouson, null: false, default: ""
+      t.string :adress_detail, null: false, default: ""
 
       ## Recoverable
       t.string   :reset_password_token
@@ -33,7 +42,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-
+    
     add_index :users, :email,                unique: true
     add_index :users, :reset_password_token, unique: true
     # add_index :users, :confirmation_token,   unique: true

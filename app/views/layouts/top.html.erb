@@ -2,7 +2,7 @@
 <html>
 <head>
   <title><%= page_title %></title>
-  <%= stylesheet_link_tag controller_name, media: "all", 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag "top", media: "all", 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -70,6 +70,7 @@
 						</ul>
 					</li>
 					<!--DBから取得-->
+					<% if @categories && @subcategories_list %>
 					<% @categories.zip(@subcategories_list).each do |category,subcategories| %>
 					<li class = "lists">
 						<ul class="menu_box">
@@ -79,6 +80,7 @@
 							<% end %>
 						</ul>
 					</li>
+					<% end %>
 					<% end %>
 					<li class = "lists">
 						<ul class="menu_box">
@@ -91,13 +93,7 @@
 						</ul>
 					</li>
 				</ul>
-				<div class="show_case">
-					<% if notice %>
-						<p class="notice"><%= notice %></p>
-					<% end %>
-					<% if alert %>
-						<p class="alert"><%= alert %></p>
-					<% end %>
+				<div class="show_case">	
 					<%= yield %>
 				</div>
 				<% if @items %>
