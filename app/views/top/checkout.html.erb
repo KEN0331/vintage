@@ -1,0 +1,273 @@
+<% items=@cart.items %>
+<% amount = @cart.getTotalPrice %>
+<% if @cards %>
+	<%= form_tag(confirm_path, method: :post) do %>
+		<fieldset>
+	    	<legend>ご登録済み情報</legend>
+			<p>氏名</p>
+			<p><%= current_user.last_name + "/n" + current_user.first_name %></p>
+			<p>氏名(カナ)</p>
+			<p><%= current_user.last_name_kana + "/n" + current_user.first_name_kana %></p>
+			<fieldset>
+				<legend>配送情報</legend>
+			    <% @adresses.each.with_index(1) do |adress, index| %>
+				<fieldset>
+					<legend>
+						<% if index == 1 %>
+							<%= radio_button 'adress', 'id', adress.id, {:checked => true}  %>
+						<% else %>
+							<%= radio_button 'adress', 'id', adress.id, {} %>
+						<% end %>
+						<%= label :adress, :id, "この住所を使う" %>
+					</legend>
+					<p>郵便番号</p>
+					<p><%= adress.postal_code_3 + "-" + adress.postal_code_4 %></p>
+					<p>住所</p>
+					<p><%= adress.todohuken + "/n" + adress.shikutyouson + "/n" + adress.adress_detail %></p>
+				</fieldset>
+				<% end %>
+				<fieldset>
+					<legend>
+						<%= radio_button 'adress', 'id', "", {:checked => false} %>
+						<%= label :adress, :id, "他の住所を使う" %>		
+					</legend>
+					<label class="control-label col-xs-5" for="customer_form_description">郵便番号</label>
+					<div class='col-xs-7'>
+						<%= text_field_tag :postal_code_3 %> - <%= text_field_tag :postal_code_4 %>
+					</div>
+					<label class="control-label col-xs-5" for="customer_form_description">都道府県</label>
+					<div class='col-xs-7'>
+						<%= text_field_tag :todohuken %>
+					</div>
+					<label class="control-label col-xs-5" for="customer_form_description">市区町村</label>
+					<div class='col-xs-7'>
+						<%= text_field_tag :shikutyouson %>
+					</div>
+					<label class="control-label col-xs-5" for="customer_form_description">番地・建物名等</label>
+					<div class='col-xs-7'>
+						<%= text_field_tag :adress_detail %>
+					</div>
+				</fieldset>
+			</fieldset>
+			<fieldset>
+	    		<legend>カード情報</legend>
+	   			<% @cards.each.with_index(1) do |card, index| %>
+				<fieldset>
+		    		<legend>
+						<% if index == 1 %>
+			    			<%= radio_button 'card', 'id', card.id, {:checked => true} %>
+						<% else %>
+							<%= radio_button 'card', 'id', card.id, {} %>
+						<% end %>
+						<%= label :card, :id, "このクレジットカードを使う" %>
+					</legend>
+					<p>メールアドレス</p>
+					<p><%= card.email %></p>
+					<p>カード有効期限</p>
+					<p><%= card.active_card.exp_year %>/<%= card.active_card.exp_month %></p>
+					<p>カード名義</p>
+					<p><%= card.active_card.name %></p>
+					<p>カード種別</p>
+					<p><%= card.active_card.type %></p>
+					<p>カード番号</p>
+					<p><%= "**** **** **** " + card.active_card.last4 %></p>
+				</fieldset>
+				<% end %>
+				<fieldset>
+		    		<legend>
+		    			<%= radio_button 'card', 'id', "", {:checked => false} %>
+						<%= label :card, :id, "他のクレジットカードを使う" %>
+					</legend>
+					<div class='col-xs-7'>
+						<%= javascript_include_tag "https://checkout.webpay.jp/v1/", class: "webpay-button",:'data-token-name' => "customer_form[card]", :'data-text' => "決済情報入力", :'data-lang' => "ja",
+					                           :"data-submit-text" => "入力完了", :'data-key' => "test_public_8aJ7sXdJi4yn8m6eMs1Ze41K", :'data-partial' => "true" %>
+				    </div>
+				</fieldset>
+			</fieldset>
+		</fieldset>
+		<% if items.present? %>
+		<fieldset>
+	    	<legend>購入商品</legend>
+			<div class="table">
+				<table border="1">
+					<tr>
+						<th class="center" width="40px"><p class="column_title">ID</p></th>
+						<th class="center" width="250px"><p class="column_title">NAME</p></th>
+						<th class="center" width="90px"><p class="column_title">PRICE</p></th>
+						<th class="center" width="70px"><p class="column_title">IMAGE1</p></th>
+						<th class="center" width="70px"><p class="column_title">IMAGE2</p></th>
+						<th class="center" width="70px"><p class="column_title">IMAGE3</p></th>
+						<th class="center" width="70px"><p class="column_title">IMAGE4</p></th>
+					</tr>
+					<% i = -1 %>
+					<% items.each do|item|  %>
+					<% i += 1 %>
+					<tr class="<%= cycle("even", "odd") -%>">
+						<td class="center"><%= item.id %></td>
+						<td class="center"><%= item.name %></td>
+						<td class="center">
+							<% denomination=Denomination.find(item.denomination_id)%>
+							<%= denomination.name+item.price.to_s %>
+						</td>
+						<td class="center">
+							<% main_image=MainImage.where(item_id: item) %>
+							<% if main_image.present? %>
+								<%= image_tag(url_for(:action => "get_image1", :id => item.id),:size => "50x50", :alt => item.name+"_1") %>
+							<% end %>
+						</td>
+						<td class="center">
+							<% subimage=Subimage.where(item_id: item).first %>
+							<% if subimage.present? %>
+								<%= image_tag(url_for(:action => "get_image2", :id => item.id),:size => "50x50", :alt => item.name+"_2") %>
+							<% end %>
+						</td>
+						<td class="center">
+							<% subimage=Subimage.where(item_id: item).offset(1).first %>
+							<% if subimage.present? %>
+								<%= image_tag(url_for(:action => "get_image3", :id => item.id),:size => "50x50", :alt => item.name+"_3") %>
+							<% end %>
+						</td>
+						<td class="center">
+							<% subimage=Subimage.where(item_id: item).offset(2).first %>
+							<% if subimage.present? %>
+								<%= image_tag(url_for(:action => "get_image4", :id => item.id),:size => "50x50", :alt => item.name+"_4") %>
+							<% end %>
+						</td>
+					</tr>
+					<% end %>
+					<% amount = @cart.getTotalPrice %>
+					<tr><td><%= amount %></td></tr>
+				</table>
+			</div>
+		</fieldset>
+		<% end %>
+		<% if items.present? %>
+		
+		
+		<%
+		# 決済情報 
+		%>
+			<%= hidden_field_tag :items, items %>
+			<%= hidden_field_tag :amount, amount %>
+			
+			<div class='form-group'>
+				<%= submit_tag "内容の確認へ", data: { disable_with: "内容送信中..." } %>
+		    </div>		
+		<% end %>
+	<% end %>
+<% else %>
+	<%= form_tag(confirm_path, method: :post) do %>
+	    <fieldset>
+	    	<legend>お客様情報の登録</legend>
+			<%= hidden_field_tag :amount, @cart.getTotalPrice %>
+			<div class='form-group'>
+				<label class="control-label col-xs-5" for="customer_form_description">性</label>
+				<div class='col-xs-7'>
+					<%= text_field_tag :last_name %>
+				</div>
+			</div>
+			<div class='form-group'>
+				<label class="control-label col-xs-5" for="customer_form_description">名</label>
+				<div class='col-xs-7'>
+					<%= text_field_tag :first_name %>
+				</div>
+			</div>
+				<div class='form-group'>
+				<label class="control-label col-xs-5" for="customer_form_description">性(カナ)</label>
+				<div class='col-xs-7'>
+					<%= text_field_tag :last_name_kana %>
+				</div>
+			</div>
+			<div class='form-group'>
+				<label class="control-label col-xs-5" for="customer_form_description">名(カナ)</label>
+				<div class='col-xs-7'>
+					<%= text_field_tag :first_name_kana %>
+				</div>
+			</div>
+			<div class='form-group'>
+				<label class="control-label col-xs-5" for="customer_form_description">住所</label>
+				<label class="control-label col-xs-5" for="customer_form_description">郵便番号</label>
+				<div class='col-xs-7'>
+					<%= text_field_tag :postal_code_3 %> - <%= text_field_tag :postal_code_4 %>
+				</div>
+				<label class="control-label col-xs-5" for="customer_form_description">都道府県</label>
+				<div class='col-xs-7'>
+					<%= text_field_tag :todohuken %>
+				</div>
+				<label class="control-label col-xs-5" for="customer_form_description">市区町村</label>
+				<div class='col-xs-7'>
+					<%= text_field_tag :shikutyouson %>
+				</div>
+				<label class="control-label col-xs-5" for="customer_form_description">番地・建物名等</label>
+				<div class='col-xs-7'>
+					<%= text_field_tag :adress_detail %>
+				</div>
+			</div>
+			<%= hidden_field_tag 'customer_form[email]', current_user.email %>
+			<div class='form-group'>
+				<label class="control-label col-xs-5" for="customer_form_card">カード情報</label>
+				<div class='col-xs-7'>
+					<%= javascript_include_tag "https://checkout.webpay.jp/v1/", class: "webpay-button",:'data-token-name' => "customer_form[card]", :'data-text' => "決済情報入力", :'data-lang' => "ja",
+				                           :"data-submit-text" => "入力完了", :'data-key' => "test_public_8aJ7sXdJi4yn8m6eMs1Ze41K", :'data-partial' => "true" %>
+			    </div>
+			</div>
+			<%= submit_tag "内容の確認へ", data: { disable_with: "内容送信中..." } %>
+		</fieldset>
+	<% end %>
+	<% if items.present? %>
+	<fieldset>
+    	<legend>購入商品</legend>
+		<div class="table">
+			<table border="1">
+				<tr>
+					<th class="center" width="40px"><p class="column_title">ID</p></th>
+					<th class="center" width="250px"><p class="column_title">NAME</p></th>
+					<th class="center" width="90px"><p class="column_title">PRICE</p></th>
+					<th class="center" width="70px"><p class="column_title">IMAGE1</p></th>
+					<th class="center" width="70px"><p class="column_title">IMAGE2</p></th>
+					<th class="center" width="70px"><p class="column_title">IMAGE3</p></th>
+					<th class="center" width="70px"><p class="column_title">IMAGE4</p></th>
+				</tr>
+				<% i = -1 %>
+				<% items.each do|item|  %>
+				<% i += 1 %>
+				<tr class="<%= cycle("even", "odd") -%>">
+					<td class="center"><%= item.id %></td>
+					<td class="center"><%= item.name %></td>
+					<td class="center">
+						<% denomination=Denomination.find(item.denomination_id)%>
+						<%= denomination.name+item.price.to_s %>
+					</td>
+					<td class="center">
+						<% main_image=MainImage.where(item_id: item) %>
+						<% if main_image.present? %>
+							<%= image_tag(url_for(:action => "get_image1", :id => item.id),:size => "50x50", :alt => item.name+"_1") %>
+						<% end %>
+					</td>
+					<td class="center">
+						<% subimage=Subimage.where(item_id: item).first %>
+						<% if subimage.present? %>
+							<%= image_tag(url_for(:action => "get_image2", :id => item.id),:size => "50x50", :alt => item.name+"_2") %>
+						<% end %>
+					</td>
+					<td class="center">
+						<% subimage=Subimage.where(item_id: item).offset(1).first %>
+						<% if subimage.present? %>
+							<%= image_tag(url_for(:action => "get_image3", :id => item.id),:size => "50x50", :alt => item.name+"_3") %>
+						<% end %>
+					</td>
+					<td class="center">
+						<% subimage=Subimage.where(item_id: item).offset(2).first %>
+						<% if subimage.present? %>
+							<%= image_tag(url_for(:action => "get_image4", :id => item.id),:size => "50x50", :alt => item.name+"_4") %>
+						<% end %>
+					</td>
+				</tr>
+				<% end %>
+				<% amount = @cart.getTotalPrice %>
+				<tr><td><%= amount %></td></tr>
+			</table>
+		</div>
+	</fieldset>
+	<% end %>
+<% end %>

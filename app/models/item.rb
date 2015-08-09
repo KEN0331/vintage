@@ -3,6 +3,7 @@ class Item < ActiveRecord::Base
   has_one :denomination
   has_one :condition
   has_one :fabric
+  has_many :purchases
   has_one :main_image
   accepts_nested_attributes_for :main_image, allow_destroy: true, update_only: true
   has_many :subimages

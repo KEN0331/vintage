@@ -42,12 +42,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
    def configure_sign_up_params
-     devise_parameter_sanitizer.for(:sign_up) << :attribute
+     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:password, :password_confirmation,:current_password,:email,:last_name, :first_name,:last_name_kana,:first_name_kana, adress_attributes: [:id, :postal_code_3,:postal_code_4,:todohuken,:shikutyouson,:adress_detail], card_attributes: [:id, :customer_id] ) }
    end
 
   # If you have extra params to permit, append them to the sanitizer.
    def configure_account_update_params
-     devise_parameter_sanitizer.for(:account_update) << :attribute
+     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:password, :password_confirmation,:current_password,:email,:last_name, :first_name,:last_name_kana,:first_name_kana, adress_attributes: [:id, :postal_code_3,:postal_code_4,:todohuken,:shikutyouson,:adress_detail], card_attributes: [:id, :customer_id] ) }
    end
 
   # The path used after sign up.

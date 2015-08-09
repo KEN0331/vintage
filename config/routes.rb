@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get "blog" => "top#blog"
   get "contact" => "top#contact"
   get "search" => "top#search"
+  get "checkout" => "top#checkout"
   get "delete_cart_item" => "top#delete_cart_item"
   get 'thanks' => 'top#thanks'
   post "plural_delete_cart_item" => "top#plural_delete_cart_item"

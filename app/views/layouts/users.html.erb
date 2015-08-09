@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= page_title %></title>
+  <%= stylesheet_link_tag controller_name, media: "all", 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="bg">
+	<div class="wrap">
+	<%= render "shared/header" %>
+			<div class="content">
+				<div class="main">
+					<div class="show_case">
+						<% if notice %>
+							<p class="notice"><%= notice %></p>
+						<% end %>
+						<% if alert %>
+							<p class="alert"><%= alert %></p>
+						<% end %>
+						<%= yield %>
+					</div>
+				</div>
+			</div>
+		<%= render "shared/footer" %>
+	</div>
+</div>
+</body>
+</html>
