@@ -1,0 +1,70 @@
+<% @page_title = "color" %>
+<% if @current_admin_user %>
+<%= render "shared/admin/info_bar" %>
+<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
+<p class="controll_column_title_top">
+	<%= link_to(image_tag("new.png",:size => "40x40", :alt => "new") , new_admin_color_path ) %>
+</p>
+<% else %>
+<p class="controll_column_title_top"></p>
+<% end %>
+<% if @colors.present? %>
+<div class="table">
+<%= form_tag(:action=> 'plural_destroy') do %>
+	<table border="1">
+		<tr>
+			<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
+			<th class="center" width="55px">
+				<p class="column_title">
+					<%= image_submit_tag("delete-all-icon.png",:class => "plural_delete", :alt => "plural_delete") %>
+					<%= check_box_tag "check_all", :id => "check_all" %>
+				</p>
+			</th>
+			<% end %>
+			<th class="center" width="40px"><p class="column_title">ID</p></th>
+			<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
+			<th class="center" width="70px">
+				<p class="controll_column_title">
+					<%= link_to(image_tag("new.png",:size => "40x40", :alt => "new") , new_admin_color_path ) %>
+				</p>
+			</th>
+			<% end %>
+			<th class="center" width="250px"><p class="column_title">NAME</p></th>
+			<th class="center" width="250px"><p class="column_title">CODE</p></th>
+			<th class="center" width="250px"><p class="column_title">COMMENT</p></th>
+			<th class="center" width="100px"><p class="column_title">CREATOR</p></th>
+			<th class="center" width="100px"><p class="column_title">EDITOR</p></th>
+			<th class="center" width="120px"><p class="column_title">CREATED_AT</p></th>
+			<th class="center" width="120px"><p class="column_title">EDITED_AT</p></th>
+		</tr>
+		<% @colors.each do|color|  %>
+		<tr class="<%= cycle("even", "odd") -%>">
+			<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
+			<td class="center"><%= check_box_tag "checked_colors[#{color.id}]", color.id, false, :class => "del_check" %></td>
+			<% end %>
+			<td class="center"><%= link_to color.id, admin_color_path(color) , class: "link" %></td>
+			<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
+			<td class="center">
+				<%= link_to(image_tag("edit-icon.png",:size => "20x20", :alt => "edit_"+color.id.to_s) , [:edit, :admin, color], :confirm => "Are You Sure to Delete「"+color.name+"」?", :class => "controll_link right" ) %>
+				<%= link_to(image_tag("delete-icon.png",:size => "20x20", :alt => "delete_"+color.id.to_s) , admin_color_path(color), method: :delete, :confirm => "Are You Sure to Delete「"+color.name+"」?" , :class => "controll_link left") %>
+			</td>
+			<% end %>
+			<td class="center" style="background-color: <%= color.code %>"><%= link_to color.name, admin_color_path(color) , class: "link" %></td>
+			<td class="center"><%= color.code %></td>
+			<td><%= simple_format(color.comment) %></td>
+			<td class="center"><%= color.create_user %></td>
+			<td class="center"><%= color.edit_user %></td>
+			<td class="center"><%= color.created_at.try(:strftime,"%Y/%m/%d") %></td>
+			<td class="center"><%= color.updated_at.try(:strftime,"%Y/%m/%d") %></td>
+		</tr>
+		<% end %>
+	</table>
+<% end %>
+</div>
+<% else %>
+	<p class="no_color">No color Registered !</p>
+<% end %>
+
+<% else %>
+<%= render "shared/login_form" %>
+<% end %>

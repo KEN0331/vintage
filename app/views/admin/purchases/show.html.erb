@@ -1,0 +1,25 @@
+<% @page_title = "contents_name" %>
+<% if @current_admin_user %>
+<%= render "shared/admin/info_bar" %>
+<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
+<div class="controll">
+	<%= link_to(image_tag("edit-icon.png",:size => "30x30", :alt => "edit_"+@denomination.id.to_s) , [:edit, :admin, @denomination] ) %>
+	<%= link_to(image_tag("delete-icon.png",:size => "30x30", :alt => "delete_"+@denomination.id.to_s) , admin_denomination_path(@denomination), method: :delete, confirm: "Are You Sure to Delete「"+@denomination.name+"」?" ) %>
+</div>
+<%end%>
+<div class="item_info">
+	<h1> <%= @denomination.name %> </h1>
+	<p class="label">creator</p>
+	<p class="info"><%= @denomination.create_user %></p>
+	<p class="label">editor</p>
+	<p class="info"><%= @denomination.edit_user %></p>
+	<p class="label">created at</p>
+	<p class="info"><%= @denomination.created_at.try(:strftime,"%Y/%m/%d %H:%M") %></p>
+	<p class="label">edited at</p>
+	<p class="info"><%= @denomination.updated_at.try(:strftime,"%Y/%m/%d %H:%M") %></p>
+	<p class="label">comment</p>
+	<p class="info"><%= simple_format(@denomination.comment) %></p>
+</div>
+<% else %>
+<%= render "shared/login_form" %>
+<% end %>

@@ -28,31 +28,6 @@
     <%= f.text_field :first_name_kana, autofocus: true %>
   </div>
   
-  <div class="field">
-    <%= f.label :postal_code_3 %><br />
-    <%= f.text_field :postal_code_3, autofocus: true %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :postal_code_4 %><br />
-    <%= f.text_field :postal_code_4, autofocus: true %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :todohuken %><br />
-    <%= f.text_field :todohuken, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :shikutyouson %><br />
-    <%= f.text_field :shikutyouson, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :adress_detail %><br />
-    <%= f.text_field :adress_detail, autofocus: true %>
-  </div>
-
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>

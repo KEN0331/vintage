@@ -52,6 +52,9 @@ Rails.application.routes.draw do
     post "recommendations/plural_destroy"
     post "authorities/plural_destroy"
     post "administrators/plural_destroy"
+    post "statuses/plural_destroy"
+    post "colors/plural_destroy"
+    post "purchases/plural_destroy"
     
     
     resources :items do
@@ -90,7 +93,19 @@ Rails.application.routes.draw do
       collection {get "search"}
     end
     
+    resources :purchases do
+      collection {get "search"}
+    end
+    
     resources :recommendations do
+      collection {get "search"}
+    end
+    
+    resources :statuses do
+      collection {get "search"}
+    end
+    
+    resources :colors do
       collection {get "search"}
     end
     

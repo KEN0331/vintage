@@ -1,5 +1,7 @@
 class Purchase < ActiveRecord::Base
   has_many :items
+  has_one :card
+  has_one :adress
   scope :active, lambda { where(:deleted => false) }
   serialize :item_id_list
   accepts_nested_attributes_for :items

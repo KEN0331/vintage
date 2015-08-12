@@ -23,6 +23,13 @@
 		<td colspan="3"><%= link_to "recommend", admin_recommendations_path , class: "menu_btn recommendations" %></td>
 		<td colspan="3"><%= link_to "new arrival", admin_new_arrivals_path , class: "menu_btn new_arrivals" %></td>
 	</tr>
+	<tr>
+		<td colspan="6"><%= link_to "purchase", admin_purchases_path , class: "menu_btn purchases" %></td>
+	</tr>
+	<tr>
+		<td colspan="3"><%= link_to "status", admin_statuses_path , class: "menu_btn statuses" %></td>
+		<td colspan="3"><%= link_to "color", admin_colors_path , class: "menu_btn colors" %></td>
+	</tr>
 	<% if @current_admin_user.authority_id==1 %>
 	<tr>
 		<td colspan="3"><%= link_to "administrator", admin_administrators_path , class: "menu_btn administrators" %></td>

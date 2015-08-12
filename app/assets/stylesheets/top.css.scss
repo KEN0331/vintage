@@ -37,8 +37,10 @@ header{
 header ul{
 	float: left;
 	width: 200px;
-	height: 20px;
+	height: 25px;
 	margin: 0;
+  padding: 0;
+  line-height: 25px;
 }
 
 header li{
@@ -59,6 +61,36 @@ header li a{
 header li a:hover{
 	color: #a9a9a9;
 	text-decoration: none;
+}
+
+.home{
+  float: left;
+}
+
+.top_list li{
+  text-align: center;
+}
+
+.user_info_lists li{
+  width: 100%;
+}
+
+.user_info_lists li a{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.top_list li.other_row{
+  display:  none;
+}
+
+.user_info_lists{
+  padding: 0;
+}
+
+.user_info_lists:hover > .other_row{
+  display: block;
 }
 
 .Logo{
@@ -207,15 +239,15 @@ td{
 	border: 1px solid transparent;
 }
 
-.other_row{
+.menu_box li.other_row{
 	display:  none;
 }
 
-.other_row a{
+.menu_box li.other_row a{
 	background: rgba(255, 255, 255, 0.7); /* RGBを10進数(0～255)で指定、不透明度を0～1.0で指定 */
 }
 
-.first_list a{
+.menu_box li.first_list a{
 	background: rgba(255, 255, 255, 0.3); /* RGBを10進数(0～255)で指定、不透明度を0～1.0で指定 */
 }
 

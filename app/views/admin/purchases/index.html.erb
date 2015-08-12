@@ -1,0 +1,124 @@
+<% @page_title = "purchase" %>
+<% if @current_admin_user %>
+<%= render "shared/admin/info_bar" %>
+<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
+<p class="controll_column_title_top">
+	<%= link_to(image_tag("new.png",:size => "40x40", :alt => "new") , new_admin_purchase_path ) %>
+</p>
+<% else %>
+<p class="controll_column_title_top"></p>
+<% end %>
+<% if @purchases.present? %>
+<div class="table">
+<%= form_tag(:action=> 'plural_destroy') do %>
+	<table border="1">
+		<tr>
+			<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
+			<th class="center" width="55px">
+				<p class="column_title">
+					<%= image_submit_tag("delete-all-icon.png",:class => "plural_delete", :alt => "plural_delete") %>
+					<%= check_box_tag "check_all", :id => "check_all" %>
+				</p>
+			</th>
+			<% end %>
+			<th class="center" width="40px"><p class="column_title">ID</p></th>
+			<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
+			<th class="center" width="70px">
+				<p class="controll_column_title">
+					<%= link_to(image_tag("new.png",:size => "40x40", :alt => "new") , new_admin_purchase_path ) %>
+				</p>
+			</th>
+			<% end %>
+			<th class="center" width="50px"><p class="column_title">新着</p></th>
+			<th class="center" width="70px"><p class="column_title">STATUS</p></th>
+			<th class="center" width="150px"><p class="column_title">ITEM_ID</p></th>
+			<th class="center" width="250px"><p class="column_title">CUSTOMER_ID</p></th>
+			<th class="center" width="150px"><p class="column_title">USER NAME</p></th>
+			<th class="center" width="150px"><p class="column_title">USER NAME(KANA)</p></th>
+			<th class="center" width="250px"><p class="column_title">USER EMAIL</p></th>
+			<th class="center" width="250px"><p class="column_title">ADRESS</p></th>
+			<th class="center" width="150px"><p class="column_title">AMOUNT</p></th>
+			<th class="center" width="150px"><p class="column_title">TAX</p></th>
+			<th class="center" width="150px"><p class="column_title">SHIPPING</p></th>
+			<th class="center" width="250px"><p class="column_title">COMMENT</p></th>
+			<th class="center" width="100px"><p class="column_title">EDITOR</p></th>
+			<th class="center" width="120px"><p class="column_title">CREATED_AT</p></th>
+			<th class="center" width="120px"><p class="column_title">EDITED_AT</p></th>
+		</tr>
+		<% @purchases.each do|purchase|  %>
+		<tr class="<%= cycle("even", "odd") -%>">
+			<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
+			<td class="center"><%= check_box_tag "checked_purchases[#{purchase.id}]", purchase.id, false, :class => "del_check" %></td>
+			<% end %>
+			<td class="center"><%= link_to purchase.id, admin_purchase_path(purchase) , class: "link" %></td>
+			<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
+			<td class="center">
+				<%= link_to(image_tag("edit-icon.png",:size => "20x20", :alt => "edit_"+purchase.id.to_s) , [:edit, :admin, purchase], :confirm => "Are You Sure to Delete「購入番号"+purchase.id.to_s+"」?", :class => "controll_link right" ) %>
+				<%= link_to(image_tag("delete-icon.png",:size => "20x20", :alt => "delete_"+purchase.id.to_s) , admin_purchase_path(purchase), method: :delete, :confirm => "Are You Sure to Delete「購入番号"+purchase.id.to_s+"」?" , :class => "controll_link left") %>
+			</td>
+			<% end %>
+			<td class="center">
+			<% if !purchase.read_flg %>
+				new
+			<% end %>
+			</td>
+			<% if purchase.status.present? && purchase.status != 0 %>
+			<% status = Status.find(purchase.status) %>
+			<% color = Color.find(status.color_id) %>
+			<td class="center" style="background-color: <%= color.code %>"><%= status.name %></td>
+			<% else %>
+			<td class="center">未着手</td>
+			<% end %>
+			<td class="center">
+				<% purchase.item_id_list.each do |item_id| %>
+					<%= link_to item_id, admin_item_path(item_id) , class: "link" %>
+				<% end %>
+			</td>
+			<td class="center">
+			<% if purchase.card_id != 0 %>
+			<% card = Card.find(purchase.card_id) %>
+				<%= card.customer_id %>
+			<% end %>
+			</td>
+			<% user = User.find(card.user_id) %>
+			<td class="center"><%= user.last_name %> <%= user.first_name %></td>
+			<td class="center"><%= user.last_name_kana %> <%= user.first_name_kana %></td>
+			<td class="center"><%= user.email %></td>
+			<td class="center">
+			<% if purchase.adress_id != 0 %>
+			<% adress = Adress.find(purchase.adress_id) %>
+				<%= adress.postal_code_3 + " - " + adress.postal_code_4 %><br />
+				<%= adress.todohuken + adress.shikutyouson + adress.adress_detail %>
+			<% end %>
+			</td>
+			<td class="center">
+			<% if purchase.amount %>
+				<%= purchase.amount %> ¥
+			<% end %>
+			</td>
+			<td class="center">
+			<% if purchase.tax %>
+				<%= purchase.tax %> ¥
+			<% end %>
+			</td>
+			<td class="center">
+			<% if purchase.shipping %>
+				<%= purchase.shipping %> ¥
+			<% end %>
+			</td>
+			<td><%= simple_format(purchase.comment) %></td>
+			<td class="center"><%= purchase.edit_user %></td>
+			<td class="center"><%= purchase.created_at.try(:strftime,"%Y/%m/%d %H:%M") %></td>
+			<td class="center"><%= purchase.updated_at.try(:strftime,"%Y/%m/%d %H:%M") %></td>
+		</tr>
+		<% end %>
+	</table>
+<% end %>
+</div>
+<% else %>
+	<p class="no_denomination">No purchase Registered !</p>
+<% end %>
+
+<% else %>
+<%= render "shared/login_form" %>
+<% end %>

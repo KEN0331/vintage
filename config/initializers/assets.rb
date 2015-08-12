@@ -20,6 +20,9 @@ Rails.application.config.assets.precompile += %w( mosaic.css )
 Rails.application.config.assets.precompile += %w( mosaic.1.0.1.min.js )
 Rails.application.config.assets.precompile += %w( new_arrivals.css )
 Rails.application.config.assets.precompile += %w( recommendations.css )
+Rails.application.config.assets.precompile += %w( statuses.css )
+Rails.application.config.assets.precompile += %w( colors.css )
+Rails.application.config.assets.precompile += %w( purchases.css )
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )

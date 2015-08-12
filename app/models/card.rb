@@ -1,3 +1,5 @@
 class Card < ActiveRecord::Base
-  belongs_to :user
+  has_one :user
+  belongs_to :purchase
+  scope :active, lambda { where(:deleted => false) }
 end

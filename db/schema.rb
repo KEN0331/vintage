@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806152525) do
+ActiveRecord::Schema.define(version: 20150810104248) do
 
   create_table "administrators", force: true do |t|
     t.string   "name",                            null: false
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20150806152525) do
 
   create_table "colors", force: true do |t|
     t.string   "name",                        null: false
-    t.integer  "code",                        null: false
+    t.string   "code",                        null: false
     t.text     "comment"
     t.boolean  "deleted",     default: false, null: false
     t.string   "create_user"
@@ -171,7 +171,7 @@ ActiveRecord::Schema.define(version: 20150806152525) do
 
   create_table "purchases", force: true do |t|
     t.text     "item_id_list",                 null: false
-    t.integer  "user_id",                      null: false
+    t.integer  "card_id",                      null: false
     t.string   "amount",                       null: false
     t.integer  "tax",                          null: false
     t.string   "shipping"
@@ -183,6 +183,7 @@ ActiveRecord::Schema.define(version: 20150806152525) do
     t.string   "edit_user"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "adress_id",                    null: false
   end
 
   create_table "recommendation_images", force: true do |t|
@@ -293,15 +294,8 @@ ActiveRecord::Schema.define(version: 20150806152525) do
     t.string   "first_name"
     t.string   "last_name_kana"
     t.string   "first_name_kana"
-    t.string   "postal_code_4"
-    t.string   "postal_code_3"
-    t.string   "todohuken"
-    t.string   "shikutyouson"
-    t.string   "adress_detail"
-    t.string   "customer_id"
   end
 
-  add_index "users", ["customer_id"], name: "index_users_on_customer_id", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
