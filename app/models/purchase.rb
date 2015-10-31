@@ -10,7 +10,7 @@ class Purchase < ActiveRecord::Base
     def search(query)
       rel=order("id")
       if query.present?
-        rel=rel.where("name Like ?", "%#{query}%")
+        rel=rel.where("card_id Like ?", "%#{query}%")
       end
       rel
     end

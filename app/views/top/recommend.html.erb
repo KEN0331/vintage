@@ -8,12 +8,16 @@
 		<% row.each do |recommendation| %>
 		<td>
 			<% if recommendation %>
+			<% item=Item.find(recommendation.item_id) %>
 			<div class="mosaic-block bar">
-				<a href=<%= show_item_path(:item => recommendation.item_id) %> class="mosaic-overlay">
+				<% if !item.sold_flag %>
+				<%= form_tag(cart_path, method: :post, :class => "mosaic-overlay") do %>
+					<%= hidden_field_tag :id, item.id %>
 					<div class="details">
-						<%= image_tag("add.png",{:size => "150x225", :alt => "add"}) %>
+						<%= image_submit_tag("add.png",{:size => "150x225", :alt => "add", :class => "add_to_cart"}) %>
 					</div>
-				</a>
+				<% end %>
+				<% end %>
 				<div class="mosaic-backdrop">
 					<% item=Item.find(recommendation.item_id) %>
 					<% denomination=Denomination.find(item.denomination_id)%>

@@ -72,7 +72,7 @@ class Admin::ItemTypesController < ApplicationController
   end
   
   def search
-    @item_types=ItemType.active.search(params[:q])
+    @item_types=ItemType.active.search(params[:q]).paginate(:page => params[:page], :per_page => 10)
     render "index"
   end
   

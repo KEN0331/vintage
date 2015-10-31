@@ -62,7 +62,7 @@ class Admin::NewArrivalsController < ApplicationController
   end
   
   def search
-    @new_arrivals=NewArrival.active.search(params[:q])
+    @new_arrivals=NewArrival.active.search(params[:q]).paginate(:page => params[:page], :per_page => 10)
     render "index"
   end
   

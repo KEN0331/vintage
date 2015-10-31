@@ -67,7 +67,7 @@ class Admin::ColorsController < ApplicationController
   end
   
   def search
-    @colors=Color.active.search(params[:q])
+    @colors=Color.active.search(params[:q]).paginate(:page => params[:page], :per_page => 10)
     render "index"
   end
   

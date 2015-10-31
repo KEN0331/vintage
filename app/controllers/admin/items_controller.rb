@@ -150,7 +150,7 @@ class Admin::ItemsController < ApplicationController
   end
   
   def search
-    @items=Item.active.search(params[:q])
+    @items=Item.active.search(params[:q]).paginate(:page => params[:page], :per_page => 10)
     render "index"
   end
   

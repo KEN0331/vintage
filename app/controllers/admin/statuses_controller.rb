@@ -67,7 +67,7 @@ class Admin::StatusesController < ApplicationController
   end
   
   def search
-    @statuses=Status.active.search(params[:q])
+    @statuses=Status.active.search(params[:q]).paginate(:page => params[:page], :per_page => 10)
     render "index"
   end
   

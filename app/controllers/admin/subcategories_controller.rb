@@ -67,7 +67,7 @@ class Admin::SubcategoriesController < ApplicationController
   end
   
   def search
-    @subcategories=Subcategory.active.search(params[:q])
+    @subcategories=Subcategory.active.search(params[:q]).paginate(:page => params[:page], :per_page => 10)
     render "index"
   end
   

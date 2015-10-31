@@ -67,7 +67,7 @@ class Admin::AdministratorsController < ApplicationController
   end
   
   def search
-    @administrators=Administrator.active.search(params[:q])
+    @administrators=Administrator.active.search(params[:q]).paginate(:page => params[:page], :per_page => 10)
     render "index"
   end
   

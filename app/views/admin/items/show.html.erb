@@ -12,7 +12,7 @@
 		<td colspan="4" class="main_img">
 			<% main_image=MainImage.where(item_id: @item) %>
 			<% if main_image.present? %>
-			<%= image_tag(url_for(:action => "get_image1", :id => @item),:size => "350x350", :alt => @item.name+"_MainImg", :align => "middle", :id => "main_image", :name => "main_image") %>
+			<%= image_tag(url_for(:action => "get_image1", :id => @item),:size => "235x350", :alt => @item.name+"_MainImg", :align => "middle", :id => "main_image", :name => "main_image") %>
 			<% end %>
 		</td>
 	</tr>
@@ -20,25 +20,25 @@
 		<td>
 			<% main_image=MainImage.where(item_id: @item) %>
 			<% if main_image.present? %>
-			<%= image_tag(url_for(:action => "get_image1", :id => @item),:size => "70x70", :alt => @item.name+"_Img1", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image1?id="+@item.id.to_s+"'); void(0);") %>
+			<%= image_tag(url_for(:action => "get_image1", :id => @item),:size => "47x70", :alt => @item.name+"_Img1", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image1?id="+@item.id.to_s+"'); void(0);") %>
 			<% end %>
 		</td>
 		<td>
 			<% subimage=Subimage.where(item_id: @item).first %>
 			<% if subimage.present? %>
-			<%= image_tag(url_for(:action => "get_image2", :id => @item),:size => "70x70", :alt => @item.name+"_Img2", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image2?id="+@item.id.to_s+"'); void(0);") %>
+			<%= image_tag(url_for(:action => "get_image2", :id => @item),:size => "47x70", :alt => @item.name+"_Img2", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image2?id="+@item.id.to_s+"'); void(0);") %>
 			<% end %>
 		</td>
 		<td>
 			<% subimage=Subimage.where(item_id: @item).offset(1).first %>
 			<% if subimage.present? %>
-			<%= image_tag(url_for(:action => "get_image3", :id => @item),:size => "70x70", :alt => @item.name+"_Img3", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image3?id="+@item.id.to_s+"'); void(0);") %>
+			<%= image_tag(url_for(:action => "get_image3", :id => @item),:size => "47x70", :alt => @item.name+"_Img3", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image3?id="+@item.id.to_s+"'); void(0);") %>
 			<% end %>
 		</td>
 		<td>
 			<% subimage=Subimage.where(item_id: @item).offset(2).first %>
 			<% if subimage.present? %>
-			<%= image_tag(url_for(:action => "get_image4", :id => @item),:size => "70x70", :alt => @item.name+"_Img4", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image4?id="+@item.id.to_s+"'); void(0);") %>
+			<%= image_tag(url_for(:action => "get_image4", :id => @item),:size => "47x70", :alt => @item.name+"_Img4", :align => "middle", :class => "sub_image", :onclick => "ChangeImg('/get_image4?id="+@item.id.to_s+"'); void(0);") %>
 			<% end %>
 		</td>
 	</tr>

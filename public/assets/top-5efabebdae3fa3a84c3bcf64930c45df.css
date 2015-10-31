@@ -1,0 +1,1037 @@
+@charset "UTF-8";
+/* charset */
+/* common */
+@font-face {
+  font-family: 'dancingscript';
+  src: url("/assets/dancingscript/dancingscript-regular-webfont.eot");
+  src: url("/assets/dancingscript/dancingscript-regular-webfont.eot?#iefix") format("embedded-opentype"), url("/assets/dancingscript/dancingscript-regular-webfont.woff2") format("woff2"), url("/assets/dancingscript/dancingscript-regular-webfont.woff") format("woff"), url("/assets/dancingscript/dancingscript-regular-webfont.ttf") format("truetype"), url("/assets/dancingscript/dancingscript-regular-webfont.svg#dancing_script_otregular") format("svg");
+}
+
+@font-face {
+  font-family: 'kaushanscript';
+  src: url("/assets/kaushanscript/kaushanscript-regular-webfont.eot");
+  src: url("/assets/kaushanscript/kaushanscript-regular-webfont.eot?#iefix") format("embedded-opentype"), url("/assets/kaushanscript/kaushanscript-regular-webfont.woff2") format("woff2"), url("/assets/kaushanscript/kaushanscript-regular-webfont.woff") format("woff"), url("/assets/kaushanscript/kaushanscript-regular-webfont.ttf") format("truetype"), url("/assets/kaushanscript/kaushanscript-regular-webfont.svg#dancing_script_otregular") format("svg");
+}
+
+@font-face {
+  font-family: 'chogokubosogothic';
+  src: url("/assets/chogokubosogothic/chogokubosogothic_5.eot");
+  src: url("/assets/chogokubosogothic/chogokubosogothic_5-webfont.eot?#iefix") format("embedded-opentype"), url("/assets/chogokubosogothic/chogokubosogothic_5-webfont.woff2") format("woff2"), url("/assets/chogokubosogothic/chogokubosogothic_5.woff") format("woff"), url("/assets/chogokubosogothic/chogokubosogothic_5.ttf") format("truetype"), url("/assets/chogokubosogothic/chogokubosogothic_5-webfont.svg#dancing_script_otregular") format("svg");
+}
+
+@font-face {
+  font-family: 'josefinsans-thin';
+  src: url("/assets/josefinsans-thin/josefinsans-thin-webfont.eot");
+  src: url("/assets/josefinsans-thin/josefinsans-thin-webfont.eot?#iefix") format("embedded-opentype"), url("/assets/josefinsans-thin/josefinsans-thin-webfont.woff2") format("woff2"), url("/assets/josefinsans-thin/josefinsans-thin-webfont.woff") format("woff"), url("/assets/josefinsans-thin/josefinsans-thin-webfont.ttf") format("truetype"), url("/assets/josefinsans-thin/josefinsans-thin-webfont.svg#dancing_script_otregular") format("svg");
+}
+
+/* line 49, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+html, body {
+  font-size: 13px;
+  font-weight: 100;
+  font-family: 'josefinsans-thin', 'chogokubosogothic';
+  /*	font-family: Monaco;*/
+  margin: 0;
+  min-height: 600px;
+}
+
+/* line 58, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+html {
+  background-color: #f5f5f5;
+}
+
+/* line 62, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+body {
+  background-image: url("TOP.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* line 68, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.wrap {
+  color: #636B71;
+  height: 100%;
+  position: relative;
+  background: rgba(255, 255, 255, 0.4);
+  /* RGBを10進数(0～255)で指定、不透明度を0～1.0で指定 */
+}
+
+/* line 75, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+header {
+  margin: 0 auto;
+  width: 980px;
+  height: 88px;
+}
+
+/* line 81, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+header ul {
+  float: left;
+  width: 200px;
+  height: 25px;
+  margin: 0;
+  padding: 0;
+  line-height: 25px;
+}
+
+/* line 90, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+header li {
+  display: block;
+  float: left;
+  list-style: none;
+  font-size: 14px;
+  width: 80px;
+  text-align: center;
+  height: 100%;
+}
+
+/* line 100, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+header li a {
+  text-decoration: none;
+  color: #636B71;
+}
+
+/* line 105, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+header li a:hover {
+  color: #a9a9a9;
+}
+
+/* line 109, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.home {
+  margin: 0;
+  padding-left: 15px;
+  width: 50px;
+  float: left;
+}
+
+/* line 116, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.login {
+  margin: 0;
+  padding-left: 9px;
+  width: 55px;
+  float: left;
+}
+
+/* line 123, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.sign_up {
+  margin: 0;
+  padding-left: 4px;
+  width: 65px;
+  float: left;
+}
+
+/* line 130, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.top_list li a img {
+  margin-top: 3px;
+  float: left;
+}
+
+/* line 135, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.top_list {
+  width: 285px;
+}
+
+/* line 139, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.top_list li {
+  width: 95px;
+  text-align: center;
+}
+
+/* line 144, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.top_list li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* line 150, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.user_info_lists li {
+  width: 95px;
+}
+
+/* line 154, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.user_info_lists li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* line 160, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.user_info_lists li a p {
+  margin: 0;
+  width: 75px;
+  float: left;
+}
+
+/* line 166, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.top_list li.other_row {
+  display: none;
+}
+
+/* line 170, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.user_info_lists {
+  width: 80px;
+  padding: 0;
+}
+
+/* line 175, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.user_info_lists:hover > .other_row {
+  display: block;
+}
+
+/* line 179, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.Logo {
+  float: left;
+  text-align: center;
+  padding-left: 75px;
+  width: 260px;
+  height: 88px;
+}
+
+/* line 187, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.Logo {
+  float: left;
+  text-align: center;
+  padding-left: 75px;
+  width: 260px;
+  height: 88px;
+}
+
+/* line 195, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.Logo a {
+  color: gray;
+  text-decoration: none;
+}
+
+/* line 200, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.Logo h1 {
+  font-weight: 500;
+  margin: 0;
+  font-family: cursive;
+}
+
+/* line 206, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.Logo p {
+  font-family: cursive;
+}
+
+/* line 210, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.R_header {
+  float: right;
+  height: 100%;
+  width: 300px;
+  font-size: 14px;
+  color: gray;
+}
+
+/* line 218, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.R_header a {
+  padding-left: 10px;
+  margin-left: 30px;
+  display: block;
+  width: 100px;
+  height: 25px;
+  float: left;
+  color: #636B71;
+}
+
+/* line 228, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.R_header a:hover {
+  color: #a9a9a9;
+}
+
+/* line 232, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.cart {
+  text-align: center;
+  margin: 0;
+  width: 80px;
+  height: 25px;
+  line-height: 25px;
+  float: left;
+}
+
+/* line 241, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.serch_text {
+  text-align: center;
+  margin: 0;
+  width: 140px;
+  height: 25px;
+  float: left;
+  line-height: 25px;
+}
+
+/* line 250, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+#q {
+  width: 130px;
+}
+
+/* line 254, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.cart_logo {
+  margin-top: 2px;
+  width: 20px;
+  height: 20px;
+  float: left;
+}
+
+/* line 261, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.search_button {
+  margin-top: 2px;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 267, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.title {
+  margin: 0;
+  color: purple;
+  font-family: Helvetica;
+}
+
+/* line 273, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.content {
+  width: 100%;
+  float: left;
+}
+
+/* -------- */
+/* line 280, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.table {
+  overflow-x: scroll;
+}
+
+/* line 284, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+table {
+  table-layout: fixed;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+/* line 290, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+th {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+/* line 294, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+td {
+  padding-top: 7px;
+}
+
+/* line 298, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.plural_delete {
+  width: 35px;
+  height: 35px;
+}
+
+/* line 303, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.del_check {
+  margin: 0 auto;
+}
+
+/* line 307, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.right {
+  text-align: right;
+}
+
+/* line 311, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.left {
+  text-align: left;
+}
+
+/* line 315, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.center {
+  text-align: center;
+}
+
+/* line 319, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.column_title {
+  padding: 0 10px;
+}
+
+/* line 323, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.odd {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+/* line 327, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.total_th {
+  height: 100px;
+}
+
+/* -------- */
+/* line 332, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.show_case {
+  background: rgba(197, 255, 238, 0.4);
+  /* RGBを10進数(0～255)で指定、不透明度を0～1.0で指定 */
+  width: 100%;
+  min-height: 650px;
+}
+
+/* line 338, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.main {
+  width: 980px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+/* line 344, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.main ul {
+  position: relative;
+  z-index: 1;
+  padding: 0;
+  margin: auto;
+  height: 30px;
+}
+
+/* line 352, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.title-img {
+  margin-bottom: 55px;
+}
+
+/* line 356, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.lists {
+  list-style: none;
+  float: left;
+  width: 140px;
+}
+
+/* line 362, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.menu_box {
+  width: 100%;
+}
+
+/* line 366, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.menu_box li {
+  background: rgba(197, 255, 238, 0.4);
+  /* RGBを10進数(0～255)で指定、不透明度を0～1.0で指定 */
+  line-height: 25px;
+  text-align: center;
+  height: 23px;
+  list-style: none;
+  border: 1px solid transparent;
+}
+
+/* line 375, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.menu_box li.other_row {
+  display: none;
+}
+
+/* line 379, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.menu_box li.other_row a {
+  background: rgba(255, 255, 255, 0.7);
+  /* RGBを10進数(0～255)で指定、不透明度を0～1.0で指定 */
+}
+
+/* line 383, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.menu_box li.first_list a {
+  background: rgba(255, 255, 255, 0.3);
+  /* RGBを10進数(0～255)で指定、不透明度を0～1.0で指定 */
+}
+
+/* line 387, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.menu_box:hover > .other_row {
+  display: block;
+}
+
+/* line 391, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.menu_box li a {
+  color: #636B71;
+  text-align: center;
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+
+/* line 400, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.menu_box li a:hover {
+  background: rgba(197, 255, 238, 0.4);
+  /* RGBを10進数(0～255)で指定、不透明度を0～1.0で指定 */
+}
+
+/* line 404, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.side_menu {
+  float: left;
+  font-size: 12px;
+  width: 160px;
+  padding-left: 40px;
+  height: 100%;
+}
+
+/* line 412, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.side_menu h2 {
+  height: 30px;
+  line-height: 30px;
+  margin: 0;
+  font-size: 15px;
+  font-weight: normal;
+}
+
+/* line 420, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.side_menu ul {
+  margin: 0;
+}
+
+/* line 424, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.side_menu li {
+  margin: 5px;
+  list-style: none;
+}
+
+/* line 429, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.side_menu li.subcategory {
+  text-indent: 1em;
+}
+
+/* line 433, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.side_menu li a {
+  line-height: 15px;
+  text-decoration: none;
+  color: gray;
+  font-size: 12px;
+}
+
+/* line 440, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.side_menu li a:hover {
+  font-size: 16px;
+  color: #000000;
+}
+
+/* line 445, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.pagination {
+  width: 750px;
+  float: right;
+  text-align: right;
+  padding-top: 20px;
+  padding-right: 10px;
+}
+
+/* line 453, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.pagination a {
+  text-decoration: none;
+  color: #000000;
+}
+
+/* line 458, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.pagination a:hover {
+  color: gray;
+}
+
+/* line 462, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+footer {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  height: 70px;
+  clear: both;
+  width: 100%;
+}
+
+/* line 471, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+footer a {
+  padding-left: 20px;
+  padding-right: 20px;
+  color: #000000;
+  text-decoration: none;
+}
+
+/* line 478, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+footer a.other_links {
+  border-left: 2px solid #a9a9a9;
+}
+
+/* line 482, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+footer a:hover {
+  color: #a9a9a9;
+  text-decoration: none;
+}
+
+/* line 487, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.CopyRight {
+  margin: 0;
+  height: 50px;
+  font-size: 12px;
+  line-height: 50px;
+}
+
+/* line 494, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+#page-top {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  font-size: 77%;
+}
+
+/* line 500, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+#page-top a {
+  background: #666;
+  text-decoration: none;
+  color: #fff;
+  width: 100px;
+  padding: 30px 0;
+  text-align: center;
+  display: block;
+  border-radius: 5px;
+}
+
+/* line 510, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+#page-top a:hover {
+  text-decoration: none;
+  background: #999;
+}
+
+/*index*/
+/* line 517, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.items {
+  border-collapse: separate;
+  border-spacing: 10px;
+  border: 1px solid transparent;
+  width: 780px;
+  padding-bottom: 50px;
+}
+
+/* line 525, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.items tr td {
+  position: relative;
+  text-align: center;
+  height: 200px;
+  width: 25%;
+}
+
+/* line 532, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.item_img {
+  width: 100%;
+  height: 225px;
+}
+
+/* line 537, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.related_items {
+  border-collapse: separate;
+  border-spacing: 10px;
+  border: 1px solid transparent;
+  width: 100%;
+}
+
+/* line 544, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.related_items tr td {
+  position: relative;
+  text-align: center;
+  width: 25%;
+  background-color: rgba(255, 243, 224, 0.4);
+}
+
+/* line 551, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.related_img {
+  margin-top: 20px;
+  width: 100%;
+  height: 90px;
+}
+
+/* line 557, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.related_items tr td p a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: #636B71;
+  text-decoration: none;
+}
+
+/* line 565, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.price {
+  height: 20px;
+  display: block;
+  margin-top: 10px;
+}
+
+/* line 571, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.items tr td p a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: #636B71;
+  text-decoration: none;
+}
+
+/* line 579, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.details {
+  width: 100%;
+  height: 100%;
+}
+
+/* line 584, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.add_to_cart {
+  width: 100%;
+  height: 100%;
+}
+
+/* line 589, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.soldout {
+  position: absolute;
+  width: 100%;
+  height: 225px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* line 596, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.soldout p {
+  color: rgba(0, 0, 0, 0.7);
+  margin: 0;
+  position: relative;
+  top: 95px;
+  display: block;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+/* show_item */
+/* line 609, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.show_item {
+  float: left;
+  border: 1px solid transparent;
+  border-collapse: separate;
+  border-spacing: 10px;
+  width: 400px;
+}
+
+/* line 617, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.show_item td {
+  vertical-align: middle;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+/* line 623, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.sub_imgs td {
+  width: 25%;
+}
+
+/* line 627, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.marks {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 10px;
+  width: 85px;
+  margin: 0;
+  position: absolute;
+}
+
+/* line 635, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.main_img {
+  height: 400px;
+}
+
+/* line 639, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.sub_imgs {
+  height: 100px;
+}
+
+/* line 643, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.sub_image {
+  opacity: .50;
+  /* Standard: FF gt 1.5, Opera, Safari */
+  filter: alpha(opacity=50);
+  /* IE lt 8 */
+  -ms-filter: "alpha(opacity=50)";
+  /* IE 8 */
+  -khtml-opacity: .50;
+  /* Safari 1.x */
+  -moz-opacity: .50;
+  /* FF lt 1.5, Netscape */
+}
+
+/* line 651, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.sub_image:hover {
+  opacity: 1.00;
+  /* Standard: FF gt 1.5, Opera, Safari */
+  filter: alpha(opacity=100);
+  /* IE lt 8 */
+  -ms-filter: "alpha(opacity=100)";
+  /* IE 8 */
+  -khtml-opacity: 1.00;
+  /* Safari 1.x */
+  -moz-opacity: 1.00;
+  /* FF lt 1.5, Netscape */
+}
+
+/* line 659, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.item_info {
+  margin: 12px;
+  float: left;
+  background-color: rgba(255, 255, 255, 0.6);
+  width: 275px;
+  height: 511px;
+}
+
+/* line 667, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.item_info h1 {
+  font-size: 16px;
+  text-align: center;
+}
+
+/* line 672, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.label {
+  background-color: rgba(220, 220, 220, 0.3);
+  /* RGBを10進数(0～255)で指定、不透明度を0～1.0で指定 */
+  text-align: center;
+}
+
+/* line 677, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.info {
+  margin: 12px;
+  min-height: 15px;
+  text-align: center;
+}
+
+/* line 683, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.description {
+  overflow: hidden;
+  word-wrap: break-word;
+  margin: 0 auto;
+  line-height: 20px;
+  display: block;
+  width: 246px;
+  height: 80px;
+}
+
+/* line 693, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.related_item {
+  margin: 12px;
+  float: left;
+  background-color: rgba(255, 255, 255, 0.6);
+  width: 257px;
+  height: 511px;
+}
+
+/* line 701, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.condition {
+  margin: 11px;
+  padding-top: 10px;
+  height: 50px;
+  clear: both;
+}
+
+/* line 708, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.condition_rule {
+  font-size: 10px;
+  border: 1px solid transparent;
+  margin: 0 auto;
+  height: 30px;
+  color: #696969;
+}
+
+/* line 716, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.condition_rule th {
+  height: 30px;
+  width: 30px;
+  background-color: rgba(197, 255, 238, 0.4);
+  /* RGBを10進数(0～255)で指定、不透明度を0～1.0で指定 */
+}
+
+/* line 722, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.condition_rule td {
+  padding-left: 10px;
+  background-color: rgba(197, 255, 238, 0.4);
+  /* RGBを10進数(0～255)で指定、不透明度を0～1.0で指定 */
+}
+
+/*管理画面TOP用*/
+/* line 733, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.log_info {
+  text-align: right;
+}
+
+/* line 737, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.log_info p.user_info {
+  text-align: center;
+  margin: 0;
+  float: right;
+  width: 199px;
+  height: 18px;
+  display: block;
+  background-color: rgba(255, 255, 255, 0.7);
+  margin-right: 1px;
+}
+
+/* line 748, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.log_info p.info_bar {
+  margin: 0;
+  width: 659PX;
+  height: 18px;
+  float: right;
+  display: block;
+  background-color: rgba(255, 255, 255, 0.7);
+  margin-right: 1px;
+}
+
+/* line 758, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.log_info a {
+  text-decoration: none;
+  color: #000000;
+  text-align: center;
+  float: right;
+  width: 120px;
+  height: 18px;
+  display: block;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* line 769, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.log_info a:hover {
+  background-color: rgba(255, 243, 224, 0.7);
+}
+
+/* line 773, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.admin_menu_tbl {
+  border-collapse: collapse;
+  width: 100%;
+  height: 600px;
+}
+
+/* line 779, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.menu_btn {
+  font-size: 30px;
+  height: 147px;
+  line-height: 147px;
+  text-align: center;
+  display: block;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* line 789, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+a.menu_btn:hover {
+  background-color: rgba(255, 243, 224, 0.7);
+}
+
+/* line 794, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.items_admin {
+  background-size: cover;
+  background-image: url("menu/ITEM.jpg");
+  background-color: rgba(229, 229, 219, 0.8);
+}
+
+/* line 799, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.categories {
+  background-size: cover;
+  background-image: url("menu/CATEGORY.jpg");
+  background-color: rgba(245, 134, 29, 0.8);
+}
+
+/* line 804, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.subcategories {
+  background-size: cover;
+  background-image: url("menu/SUBCATEGORY.jpg");
+  background-color: rgba(198, 180, 114, 0.8);
+}
+
+/* line 809, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.conditions {
+  background-size: cover;
+  background-image: url("menu/CONDITION.jpg");
+  background-color: rgba(160, 122, 51, 0.8);
+}
+
+/* line 814, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.fabrics {
+  background-size: cover;
+  background-image: url("menu/FABRIC.jpg");
+  background-color: rgba(219, 167, 156, 0.8);
+}
+
+/* line 819, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.denominations {
+  background-size: cover;
+  background-image: url("menu/CURRENCY.jpg");
+  background-color: rgba(107, 154, 146, 0.8);
+}
+
+/* line 824, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.units {
+  background-size: cover;
+  background-image: url("menu/MEASURE.jpg");
+  background-color: rgba(228, 217, 196, 0.8);
+}
+
+/* line 830, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.recommendations {
+  background-size: cover;
+  background-image: url("menu/RECOMMEND.jpg");
+}
+
+/* line 835, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.new_arrivals {
+  background-size: cover;
+  background-image: url("menu/NEW_ARRIVAL.jpg");
+}
+
+/* line 840, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.administrators {
+  margin: 0;
+  background-color: rgba(229, 229, 219, 0.8);
+}
+
+/* line 844, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.authorities {
+  margin: 0;
+  background-color: rgba(229, 229, 219, 0.8);
+}
+
+/* line 849, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.login_form {
+  margin: 0 auto;
+  width: 300px;
+  padding-bottom: 20px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* line 857, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.login_form h2 {
+  margin: 0;
+  text-align: center;
+  background-color: rgba(255, 243, 224, 0.7);
+  color: rgba(0, 0, 0, 0.4);
+}
+
+/* line 864, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.login_form table {
+  margin: 20px auto 0;
+}
+
+/* line 868, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.alert {
+  text-align: center;
+  color: #ff0000;
+}
+
+/* line 873, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.login_button_layout {
+  text-align: center;
+}
+
+/* line 877, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.login_button {
+  margin-right: 1px;
+  height: 25px;
+  width: 156px;
+  background-color: rgba(255, 243, 224, 0.6);
+  color: rgba(0, 0, 0, 0.4);
+  font-weight: bold;
+  border-radius: 7px;
+  /* CSS3草案 */
+  -webkit-border-radius: 7px;
+  /* Safari,Google Chrome用 */
+  -moz-border-radius: 7px;
+  /* Firefox用 */
+}
+
+/* line 889, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.login_button:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* line 893, /Users/ken/Documents/Aptana3/vintage/app/assets/stylesheets/top.css.scss */
+.login_field {
+  height: 20px;
+  width: 150px;
+  background-color: rgba(255, 255, 255, 0.5);
+}

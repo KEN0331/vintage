@@ -67,7 +67,7 @@ class Admin::CategoriesController < ApplicationController
   end
   
   def search
-    @categories=Category.active.search(params[:q])
+    @categories=Category.active.search(params[:q]).paginate(:page => params[:page], :per_page => 10)
     render "index"
   end
   

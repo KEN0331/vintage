@@ -67,7 +67,7 @@ class Admin::DenominationsController < ApplicationController
   end
   
   def search
-    @denominations=Denomination.active.search(params[:q])
+    @denominations=Denomination.active.search(params[:q]).paginate(:page => params[:page], :per_page => 10)
     render "index"
   end
   

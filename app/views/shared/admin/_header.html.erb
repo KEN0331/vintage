@@ -1,6 +1,11 @@
 <header>
-	<ul>
-		<li><%= link_to_unless_current "HOME", admin_root_path %></li>
+	<ul class = "top_list">
+		<li>
+			<%= link_to admin_root_path do %>
+				<p class = "home">HOME</p>
+				<%= image_tag("home.png",:size => "15x15", :alt => "home") %>
+			<% end %>
+		</li>
 	</ul>
 	<div class="Logo">
 		<a href="<%= admin_root_path %>">
@@ -8,12 +13,12 @@
 		<p>try on the someone's story</p>
 		</a>
 	</div>
+	<% if controller_name != "top" %>
 	<div class="R_header">
-		<%= form_tag search_admin_administrators_path, method: :get do %>
-		<p>
-			<%= text_field_tag "q", params[:q] %>
-			<%= submit_tag "Go" %>
-		</p>
+		<%= form_tag({controller: controller_name, action: "search"}, method: :get) do %>
+			<p class="serch_text"><%= text_field_tag "q", params[:q] %></p>
+			<%= image_submit_tag("search.png",{:size => "15x15", :alt => "search", :class => "search_button"}) %>
 		<% end %>
 	</div>
+	<% end %>
 </header>

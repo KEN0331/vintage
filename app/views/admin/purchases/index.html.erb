@@ -1,13 +1,7 @@
 <% @page_title = "purchase" %>
 <% if @current_admin_user %>
 <%= render "shared/admin/info_bar" %>
-<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
-<p class="controll_column_title_top">
-	<%= link_to(image_tag("new.png",:size => "40x40", :alt => "new") , new_admin_purchase_path ) %>
-</p>
-<% else %>
 <p class="controll_column_title_top"></p>
-<% end %>
 <% if @purchases.present? %>
 <div class="table">
 <%= form_tag(:action=> 'plural_destroy') do %>
@@ -22,13 +16,7 @@
 			</th>
 			<% end %>
 			<th class="center" width="40px"><p class="column_title">ID</p></th>
-			<% if @current_admin_user.authority_id==1||@current_admin_user.authority_id==2 %>
-			<th class="center" width="70px">
-				<p class="controll_column_title">
-					<%= link_to(image_tag("new.png",:size => "40x40", :alt => "new") , new_admin_purchase_path ) %>
-				</p>
-			</th>
-			<% end %>
+			<th class="center" width="70px"></th>
 			<th class="center" width="50px"><p class="column_title">新着</p></th>
 			<th class="center" width="70px"><p class="column_title">STATUS</p></th>
 			<th class="center" width="150px"><p class="column_title">ITEM_ID</p></th>

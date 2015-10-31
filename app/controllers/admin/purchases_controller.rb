@@ -54,9 +54,33 @@ class Admin::PurchasesController < ApplicationController
       redirect_to admin_purchases_path, notice: "削除するPURCHASEを選択してください"
     end
   end
-  
+
+  #ユーザのメールアドレスから購入履歴を検索  
   def search
-    @purchases=Purchase.active.search(params[:q]).order(id: :desc)
+    @purchases = Purchase.active.order(id: :desc).paginate(:page => params[:page], :per_page => 10)
+    if params[:q].present?
+      
+      #ユーザーをメールアドレスで検索
+      users = User.search_by_email(params[:q])
+       
+      #ユーザー検索結果からユーザーIDリストを作成
+      user_id_list = []
+      users.each do |user|
+        user_id_list << user.id
+      end
+
+      #カード情報をユーザーIDリストで検索
+      cards = Card.where(:user_id => user_id_list)
+
+      #カード情報の検索結果からカードIDリストを作成
+      card_id_list = []
+      cards.each do |card|
+        card_id_list << card.id
+      end
+
+      #カードIDが検索対象のメールアドレスを持つユーザーのものと一致する購入履歴
+      @purchases = Purchase.active.where(:card_id => card_id_list).order(id: :desc).paginate(:page => params[:page], :per_page => 10)
+    end
     render "index"
   end
   

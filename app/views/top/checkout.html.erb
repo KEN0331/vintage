@@ -93,11 +93,8 @@
 					<tr>
 						<th class="center" width="40px"><p class="column_title">ID</p></th>
 						<th class="center" width="250px"><p class="column_title">NAME</p></th>
+						<th class="center" width="160px"><p class="column_title">IMAGE</p></th>
 						<th class="center" width="90px"><p class="column_title">PRICE</p></th>
-						<th class="center" width="70px"><p class="column_title">IMAGE1</p></th>
-						<th class="center" width="70px"><p class="column_title">IMAGE2</p></th>
-						<th class="center" width="70px"><p class="column_title">IMAGE3</p></th>
-						<th class="center" width="70px"><p class="column_title">IMAGE4</p></th>
 					</tr>
 					<% i = -1 %>
 					<% items.each do|item|  %>
@@ -106,37 +103,22 @@
 						<td class="center"><%= item.id %></td>
 						<td class="center"><%= item.name %></td>
 						<td class="center">
-							<% denomination=Denomination.find(item.denomination_id)%>
-							<%= denomination.name+item.price.to_s %>
-						</td>
-						<td class="center">
 							<% main_image=MainImage.where(item_id: item) %>
 							<% if main_image.present? %>
-								<%= image_tag(url_for(:action => "get_image1", :id => item.id),:size => "50x50", :alt => item.name+"_1") %>
+								<%= image_tag(url_for(:action => "get_image1", :id => item.id),:size => "150x225", :alt => item.name+"_1") %>
 							<% end %>
 						</td>
 						<td class="center">
-							<% subimage=Subimage.where(item_id: item).first %>
-							<% if subimage.present? %>
-								<%= image_tag(url_for(:action => "get_image2", :id => item.id),:size => "50x50", :alt => item.name+"_2") %>
-							<% end %>
-						</td>
-						<td class="center">
-							<% subimage=Subimage.where(item_id: item).offset(1).first %>
-							<% if subimage.present? %>
-								<%= image_tag(url_for(:action => "get_image3", :id => item.id),:size => "50x50", :alt => item.name+"_3") %>
-							<% end %>
-						</td>
-						<td class="center">
-							<% subimage=Subimage.where(item_id: item).offset(2).first %>
-							<% if subimage.present? %>
-								<%= image_tag(url_for(:action => "get_image4", :id => item.id),:size => "50x50", :alt => item.name+"_4") %>
-							<% end %>
+							<% denomination=Denomination.find(item.denomination_id)%>
+							<%= denomination.name+item.price.to_s %>
 						</td>
 					</tr>
 					<% end %>
 					<% amount = @cart.getTotalPrice %>
-					<tr><td><%= amount %></td></tr>
+					<tr>
+						<td colspan="3" class="center">TOTAL</td>
+						<td class="center">¥<%= amount %></td>
+					</tr>
 				</table>
 			</div>
 		</fieldset>
@@ -150,7 +132,7 @@
 			<%= hidden_field_tag :items, items %>
 			<%= hidden_field_tag :amount, amount %>
 			
-			<div class='form-group'>
+			<div class='form-group center'>
 				<%= submit_tag "内容の確認へ", data: { disable_with: "内容送信中..." } %>
 		    </div>		
 		<% end %>
@@ -222,11 +204,8 @@
 				<tr>
 					<th class="center" width="40px"><p class="column_title">ID</p></th>
 					<th class="center" width="250px"><p class="column_title">NAME</p></th>
+					<th class="center" width="160px"><p class="column_title">IMAGE</p></th>
 					<th class="center" width="90px"><p class="column_title">PRICE</p></th>
-					<th class="center" width="70px"><p class="column_title">IMAGE1</p></th>
-					<th class="center" width="70px"><p class="column_title">IMAGE2</p></th>
-					<th class="center" width="70px"><p class="column_title">IMAGE3</p></th>
-					<th class="center" width="70px"><p class="column_title">IMAGE4</p></th>
 				</tr>
 				<% i = -1 %>
 				<% items.each do|item|  %>
@@ -235,37 +214,22 @@
 					<td class="center"><%= item.id %></td>
 					<td class="center"><%= item.name %></td>
 					<td class="center">
-						<% denomination=Denomination.find(item.denomination_id)%>
-						<%= denomination.name+item.price.to_s %>
-					</td>
-					<td class="center">
 						<% main_image=MainImage.where(item_id: item) %>
 						<% if main_image.present? %>
-							<%= image_tag(url_for(:action => "get_image1", :id => item.id),:size => "50x50", :alt => item.name+"_1") %>
+							<%= image_tag(url_for(:action => "get_image1", :id => item.id),:size => "150x225", :alt => item.name+"_1") %>
 						<% end %>
 					</td>
 					<td class="center">
-						<% subimage=Subimage.where(item_id: item).first %>
-						<% if subimage.present? %>
-							<%= image_tag(url_for(:action => "get_image2", :id => item.id),:size => "50x50", :alt => item.name+"_2") %>
-						<% end %>
-					</td>
-					<td class="center">
-						<% subimage=Subimage.where(item_id: item).offset(1).first %>
-						<% if subimage.present? %>
-							<%= image_tag(url_for(:action => "get_image3", :id => item.id),:size => "50x50", :alt => item.name+"_3") %>
-						<% end %>
-					</td>
-					<td class="center">
-						<% subimage=Subimage.where(item_id: item).offset(2).first %>
-						<% if subimage.present? %>
-							<%= image_tag(url_for(:action => "get_image4", :id => item.id),:size => "50x50", :alt => item.name+"_4") %>
-						<% end %>
+						<% denomination=Denomination.find(item.denomination_id)%>
+						<%= denomination.name+item.price.to_s %>
 					</td>
 				</tr>
 				<% end %>
 				<% amount = @cart.getTotalPrice %>
-				<tr><td><%= amount %></td></tr>
+				<tr>
+					<td colspan="3" class="center">TOTAL</td>
+					<td class="center">¥<%= amount %></td>
+				</tr>
 			</table>
 		</div>
 	</fieldset>

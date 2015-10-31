@@ -19,5 +19,13 @@ class User < ActiveRecord::Base
       end
       rel
     end
+    
+    def search_by_email(query)
+      rel=order("id")
+      if query.present?
+        rel=rel.where("email Like ?", "%#{query}%")
+      end
+      rel
+    end
   end
 end

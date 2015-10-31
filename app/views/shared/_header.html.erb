@@ -1,22 +1,47 @@
 <header>
 	<ul class = "top_list">
-		<li class = "home">
-			<%= link_to_unless_current "HOME", root_path %>
+		<li>
+			<%= link_to root_path do %>
+				<p class = "home">Home</p>
+				<%= image_tag("home.png",:size => "15x15", :alt => "home") %>
+			<% end %>
 		</li>
 		<li>
-			<!-- user_signed_in? はユーザがログインしているか調べるdeviseのHelperメソッド -->
 		    <% if user_signed_in? %> 
-		      <!-- current_user は現在ログインしているUserオブジェクトを返すdeviseのHelperメソッド -->
-		      <!-- *_path はUserモデルを作成したときに、
-		        deviseにより自動で作成されてますので、rake routesで確認できます -->
 		      <ul class="user_info_lists">
-		      	<li class = "first_list"><%= current_user.email %></li>
-		      	<li class = "other_row"><%= link_to 'アカウント変更', edit_user_registration_path %></li>
-		      	<li class = "other_row"><%= link_to "LOGOUT", destroy_user_session_path, method: :delete %></li>
+		      	<li class = "first_list">
+		      		<%= link_to edit_user_registration_path do %>
+						<p>Account</p>
+						<%= image_tag("menu.png",:size => "15x15", :alt => "account") %>
+					<% end %>
+		      	</li>
+		      	<li class = "other_row">
+		      		<%= link_to edit_user_registration_path do %>
+						<p>Preference</p>
+						<%= image_tag("settings.png",:size => "15x15", :alt => "account settings") %>
+					<% end %>
+		      	</li>
+		      	<li class = "other_row">
+			      	<%= link_to destroy_user_session_path, method: :delete do %>
+						<p>Logout</p>
+						<%= image_tag("logout.png",:size => "15x15", :alt => "logout") %>
+					<% end %>
+				</li>
 		      </ul>
 		    <% else %>
-		      <%= link_to "LOGIN", new_user_session_path %>
+      		<%= link_to new_user_session_path do %>
+				<p class = "login">Login</p>
+				<%= image_tag("sign_in.png",:size => "15x15", :alt => "sign in") %>
+			<% end %>
 		    <% end %>
+		</li>
+		<li>
+			<% if !user_signed_in? %>
+	      		<%= link_to new_user_registration_path do %>
+					<p class = "sign_up">Sign up</p>
+					<%= image_tag("sign_up.png",:size => "15x15", :alt => "sign up") %>
+				<% end %>
+			<% end %>
 		</li>
 	</ul>
 	<div class="Logo">
@@ -26,14 +51,22 @@
 		</a>
 	</div>
 	<div class="R_header">
-		<% if session[:cart] %>
-		<p>Your Cart <%= link_to_unless_current session[:cart].items.count.to_s+" Items", cart_path %></p>
-		<% end %>
+		<div class="cart_area">
+			<% if session[:cart] %>
+	  		<%= link_to cart_path do %>
+				<%= image_tag("cart.png",:size => "15x15", :alt => "cart", :class => "cart_logo") %>
+				<% if session[:cart].items.count == 0 || session[:cart].items.count == 1 %>
+					<% s = "" %>
+				<% else %>
+					<% s = "s" %>
+				<% end %>
+				<p class = "cart"><%= session[:cart].items.count.to_s+" Item"+s %></p>
+			<% end %>
+			<% end %>
+		</div>
 		<%= form_tag :search, method: :get do %>
-		<p>
-			<%= text_field_tag "q", params[:q] %>
-			<%= submit_tag "Go" %>
-		</p>
+			<p class="serch_text"><%= text_field_tag "q", params[:q] %></p>
+			<%= image_submit_tag("search.png",{:size => "15x15", :alt => "search", :class => "search_button"}) %>
 		<% end %>
 	</div>
 </header>

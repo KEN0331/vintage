@@ -67,7 +67,7 @@ class Admin::ConditionsController < ApplicationController
   end
   
   def search
-    @conditions=Condition.active.search(params[:q])
+    @conditions=Condition.active.search(params[:q]).paginate(:page => params[:page], :per_page => 10)
     render "index"
   end
   

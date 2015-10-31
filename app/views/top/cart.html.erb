@@ -27,7 +27,7 @@
 			<td class="center">
 				<% main_image=MainImage.where(item_id: item) %>
 				<% if main_image.present? %>
-					<%= image_tag(url_for(:action => "get_image1", :id => item.id),:size => "150x255", :alt => item.name+"_1") %>
+					<%= image_tag(url_for(:action => "get_image1", :id => item.id),:size => "150x225", :alt => item.name+"_1") %>
 				<% end %>
 			</td>
 			<td class="center">
@@ -41,8 +41,17 @@
 			<td colspan="4" class="center">TOTAL</td>
 			<td class="center"	>¥<%= amount %></td>
 		</tr>
+		<tr>
+			<td colspan="5" class="to_register">
+				<div class="register_button center">
+					<%= link_to checkout_path do %>
+						<p>レジへ進む</p>
+						<%= image_tag("register.png",:size => "15x15", :alt => "account") %>
+					<% end %>
+				</div>
+			</td>
+		</tr>
 	</table>
 </div>
 <% end %>
-<%= link_to "レジへ進む", checkout_path %>
 <% end %>
